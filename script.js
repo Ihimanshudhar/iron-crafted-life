@@ -1,79 +1,84 @@
 const products = [
+    // Cosmetics (priority)
     {
-        name: "Product One",
-        img: "https://via.placeholder.com/600x400?text=Me+with+Product+1",
-        buy: "https://example.com/product1",
+        name: "Cosmetic One",
+        img: "https://via.placeholder.com/600x400?text=Cosmetic+1",
+        buy: "#",
+        category: "cosmetics"
+    },
+    {
+        name: "Cosmetic Two",
+        img: "https://via.placeholder.com/600x400?text=Cosmetic+2",
+        buy: "#",
+        category: "cosmetics"
+    },
+    // ... other categories
+    {
+        name: "Lifestyle One",
+        img: "https://via.placeholder.com/600x400?text=Lifestyle+1",
+        buy: "#",
         category: "lifestyle"
     },
     {
-        name: "Product Two",
-        img: "https://via.placeholder.com/600x400?text=Me+with+Product+2",
-        buy: "https://example.com/product2",
+        name: "Beauty One",
+        img: "https://via.placeholder.com/600x400?text=Beauty+1",
+        buy: "#",
         category: "beauty"
     },
     {
-        name: "Product Three",
-        img: "https://via.placeholder.com/600x400?text=Me+with+Product+3",
-        buy: "https://example.com/product3",
+        name: "Gym One",
+        img: "https://via.placeholder.com/600x400?text=Gym+1",
+        buy: "#",
         category: "gym"
     },
     {
-        name: "Product Four",
-        img: "https://via.placeholder.com/600x400?text=Me+with+Product+4",
-        buy: "https://example.com/product4",
+        name: "Category 4",
+        img: "https://via.placeholder.com/600x400?text=Cat+4",
+        buy: "#",
         category: "category4"
     },
     {
-        name: "Product Five",
-        img: "https://via.placeholder.com/600x400?text=Me+with+Product+5",
-        buy: "https://example.com/product5",
+        name: "Category 5",
+        img: "https://via.placeholder.com/600x400?text=Cat+5",
+        buy: "#",
         category: "category5"
     }
 ];
 
-const categoryContainers = {
-    lifestyle: document.getElementById("lifestyle-products"),
-    beauty: document.getElementById("beauty-products"),
-    gym: document.getElementById("gym-products"),
-    category4: document.getElementById("category4-products"),
-    category5: document.getElementById("category5-products")
-};
+const sections = document.querySelectorAll('.product-section');
+const tabs = document.querySelectorAll('.tab');
 
-const categoryContents = document.querySelectorAll(".category-content");
-const tabButtons = document.querySelectorAll(".tab-button");
+// insert products
+products.forEach(p => {
+    const container = document.getElementById(p.category);
+    const card = document.createElement("div");
+    card.classList.add("product-card");
+    card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <div class="product-info">
+            <h3>${p.name}</h3>
+            <a href="${p.buy}" target="_blank">Buy Now</a>
+        </div>
+    `;
+    if (container) container.appendChild(card);
+});
 
-// Initially hide all categories and show lifestyle
-categoryContents.forEach(content => content.style.display = "none");
-document.getElementById("lifestyle").style.display = "block";
+// switch tab
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
 
-// Add event listener to each tab
-tabButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        // Hide all category content
-        categoryContents.forEach(content => content.style.display = "none");
-
-        // Show the selected category content
-        const category = button.getAttribute("data-category");
-        document.getElementById(category).style.display = "block";
-
-        // Add active class to the clicked tab and remove from others
-        tabButtons.forEach(tab => tab.classList.remove("active"));
-        button.classList.add("active");
+        sections.forEach(s => {
+            s.classList.remove("active");
+        });
+        const cat = tab.getAttribute("data-cat");
+        document.getElementById(cat).classList.add("active");
     });
 });
 
-// Create product cards for each category
-products.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-
-    card.innerHTML = `
-        <img src="${product.img}" alt="${product.name}" />
-        <div class="product-info">
-            <h3>${product.name}</h3>
-            <a href="${product.buy}" target="_blank">Buy Now</a>
-        </div>
-    `;
-
-    categoryContainers[product.category].appendChild(card);
+// auto open cosmetics
+document.getElementById("exploreBtn").addEventListener("click", () => {
+    const firstTab = document.querySelector('.tab[data-cat="cosmetics"]');
+    firstTab.click();
 });
