@@ -8,38 +8,34 @@
 </head>
 <body>
 
-    <header>
-        <h1>My Favorite Products</h1>
-        <p>A curated list of products I love — categorized for easy browsing.</p>
-    </header>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Beauty Starts Here</h1>
+            <p>Discover my favorite cosmetics & must-have products</p>
+            <button id="exploreBtn">Explore Cosmetics</button>
+        </div>
+    </section>
 
-    <div class="tabs">
-        <button class="tab-button" data-category="lifestyle">Lifestyle</button>
-        <button class="tab-button" data-category="beauty">Beauty</button>
-        <button class="tab-button" data-category="gym">Gym</button>
-        <button class="tab-button" data-category="category4">Category 4</button>
-        <button class="tab-button" data-category="category5">Category 5</button>
+    <!-- Category Tabs -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab active" data-cat="cosmetics">Cosmetics</button>
+            <button class="tab" data-cat="lifestyle">Lifestyle</button>
+            <button class="tab" data-cat="beauty">Beauty</button>
+            <button class="tab" data-cat="gym">Gym</button>
+            <button class="tab" data-cat="category4">Category 4</button>
+            <button class="tab" data-cat="category5">Category 5</button>
+        </div>
     </div>
 
-    <div id="lifestyle" class="category-content">
-        <div class="product-container" id="lifestyle-products"></div>
-    </div>
-
-    <div id="beauty" class="category-content">
-        <div class="product-container" id="beauty-products"></div>
-    </div>
-
-    <div id="gym" class="category-content">
-        <div class="product-container" id="gym-products"></div>
-    </div>
-
-    <div id="category4" class="category-content">
-        <div class="product-container" id="category4-products"></div>
-    </div>
-
-    <div id="category5" class="category-content">
-        <div class="product-container" id="category5-products"></div>
-    </div>
+    <!-- Products -->
+    <div id="cosmetics" class="product-section active"></div>
+    <div id="lifestyle" class="product-section"></div>
+    <div id="beauty" class="product-section"></div>
+    <div id="gym" class="product-section"></div>
+    <div id="category4" class="product-section"></div>
+    <div id="category5" class="product-section"></div>
 
     <script src="script.js"></script>
 </body>
