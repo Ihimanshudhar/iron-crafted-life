@@ -39,6 +39,30 @@ const categoryContainers = {
     category5: document.getElementById("category5-products")
 };
 
+const categoryContents = document.querySelectorAll(".category-content");
+const tabButtons = document.querySelectorAll(".tab-button");
+
+// Initially hide all categories and show lifestyle
+categoryContents.forEach(content => content.style.display = "none");
+document.getElementById("lifestyle").style.display = "block";
+
+// Add event listener to each tab
+tabButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        // Hide all category content
+        categoryContents.forEach(content => content.style.display = "none");
+
+        // Show the selected category content
+        const category = button.getAttribute("data-category");
+        document.getElementById(category).style.display = "block";
+
+        // Add active class to the clicked tab and remove from others
+        tabButtons.forEach(tab => tab.classList.remove("active"));
+        button.classList.add("active");
+    });
+});
+
+// Create product cards for each category
 products.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
