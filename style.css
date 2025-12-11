@@ -12,14 +12,36 @@ header {
     color: white;
 }
 
-.category {
-    padding: 20px;
-    margin: 20px 0;
+.tabs {
+    display: flex;
+    justify-content: center;
+    background: #f1f1f1;
+    padding: 10px 0;
+    margin: 0;
 }
 
-.category h2 {
-    text-align: center;
-    color: #333;
+.tab-button {
+    background: #ddd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.tab-button:hover {
+    background: #ccc;
+}
+
+.tab-button.active {
+    background: #0077ff;
+    color: white;
+}
+
+.category-content {
+    display: none;
 }
 
 .product-container {
