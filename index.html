@@ -3,21 +3,143 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Product Page</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Product Page - Modern Dark Theme</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", Arial, sans-serif;
+            background: #0f0f0f;
+            color: #e6e6e6;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a, #111);
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+        .hero button {
+            margin-top: 25px;
+            background: #2b7cff;
+            padding: 14px 32px;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+        .hero button:hover {
+            background: #1e63cc;
+        }
+
+        /* TABS */
+        .tabs-container {
+            background: #141414;
+            border-bottom: 1px solid #222;
+            padding: 0;
+            overflow-x: auto;
+        }
+        .tabs {
+            display: flex;
+            gap: 14px;
+            padding: 14px 20px;
+        }
+        .tab {
+            background: #1d1d1d;
+            color: #ccc;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 22px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab.active {
+            background: #2b7cff;
+            color: #fff;
+        }
+        .tab:hover {
+            background: #2b2b2b;
+        }
+
+        /* PRODUCT GRID */
+        .product-section {
+            display: none;
+            opacity: 0;
+            padding: 40px;
+            transition: opacity 0.3s ease;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .product-section.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* PRODUCT CARD */
+        .product-card {
+            background: #161616;
+            width: 300px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
+            transition: transform 0.2s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 18px;
+        }
+        .product-info h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f2f2f2;
+        }
+        .product-info a {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #2b7cff;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .product-info a:hover {
+            background: #1e63cc;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Beauty Starts Here</h1>
-            <p>Discover my favorite cosmetics & must-have products</p>
-            <button id="exploreBtn">Explore Cosmetics</button>
-        </div>
+        <h1>Premium Products, Curated for You</h1>
+        <p>A refined, masculine collection of essentials and lifestyle picks.</p>
+        <button id="exploreBtn">Explore Cosmetics</button>
     </section>
 
-    <!-- Category Tabs -->
     <div class="tabs-container">
         <div class="tabs">
             <button class="tab active" data-cat="cosmetics">Cosmetics</button>
@@ -29,7 +151,6 @@
         </div>
     </div>
 
-    <!-- Products -->
     <div id="cosmetics" class="product-section active"></div>
     <div id="lifestyle" class="product-section"></div>
     <div id="beauty" class="product-section"></div>
@@ -37,6 +158,49 @@
     <div id="category4" class="product-section"></div>
     <div id="category5" class="product-section"></div>
 
-    <script src="script.js"></script>
+    <script>
+        const products = [
+            { name: "Cosmetic One", img: "https://via.placeholder.com/600x400?text=Cosmetic+1", buy: "#", category: "cosmetics" },
+            { name: "Cosmetic Two", img: "https://via.placeholder.com/600x400?text=Cosmetic+2", buy: "#", category: "cosmetics" },
+            { name: "Lifestyle One", img: "https://via.placeholder.com/600x400?text=Lifestyle+1", buy: "#", category: "lifestyle" },
+            { name: "Beauty One", img: "https://via.placeholder.com/600x400?text=Beauty+1", buy: "#", category: "beauty" },
+            { name: "Gym One", img: "https://via.placeholder.com/600x400?text=Gym+1", buy: "#", category: "gym" },
+            { name: "Category 4", img: "https://via.placeholder.com/600x400?text=Cat+4", buy: "#", category: "category4" },
+            { name: "Category 5", img: "https://via.placeholder.com/600x400?text=Cat+5", buy: "#", category: "category5" }
+        ];
+
+        const sections = document.querySelectorAll('.product-section');
+        const tabs = document.querySelectorAll('.tab');
+
+        products.forEach(p => {
+            const container = document.getElementById(p.category);
+            const card = document.createElement("div");
+            card.classList.add("product-card");
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.name}" />
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <a href="${p.buy}" target="_blank">Buy Now</a>
+                </div>
+            `;
+            if (container) container.appendChild(card);
+        });
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                sections.forEach(s => s.classList.remove("active"));
+                const cat = tab.getAttribute("data-cat");
+                document.getElementById(cat).classList.add("active");
+            });
+        });
+
+        document.getElementById("exploreBtn").addEventListener("click", () => {
+            const firstTab = document.querySelector('.tab[data-cat="cosmetics"]');
+            firstTab.click();
+        });
+    </script>
+
 </body>
 </html>
