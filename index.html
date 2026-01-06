@@ -5,165 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Page - Modern Dark Theme</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Inter", Arial, sans-serif;
-            background: #0f0f0f;
-            color: #e6e6e6;
-        }
+        /* ... Your existing styles ... */
+        body { margin: 0; padding: 0; font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e6e6e6; }
 
-        /* HERO */
-        .hero {
-            background: linear-gradient(135deg, #1a1a1a, #111);
-            padding: 100px 20px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.7;
-            max-width: 800px; /* Adjust this value to make the lines longer or shorter */
-            margin: 20px auto 0; /* 'auto' centers the block horizontally */
-            line-height: 1.6; /* Improves readability */
-        }
-        .hero button {
-            margin-top: 25px;
-            background: #2b7cff;
-            padding: 14px 32px;
-            border: none;
+        /* NEW: Read This Toggle Button */
+        .read-this-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff4757; /* Eye-catching color */
             color: white;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 600;
-        }
-        .hero button:hover {
-            background: #1e63cc;
-        }
-
-        /* TABS */
-        .tabs-container {
-            background: #141414;
-            border-bottom: 1px solid #222;
-            padding: 0;
-            overflow-x: auto;
-        }
-        .tabs {
-            display: flex;
-            gap: 14px;
-            padding: 14px 20px;
-        }
-        .tab {
-            background: #1d1d1d;
-            color: #ccc;
             border: none;
             padding: 10px 20px;
-            border-radius: 22px;
-            font-size: 1rem;
+            border-radius: 30px;
             cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
+            z-index: 1000;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
         }
-        .tab.active {
-            background: #2b7cff;
-            color: #fff;
-        }
-        .tab:hover {
-            background: #2b2b2b;
-        }
+        .read-this-btn:hover { background: #ff6b81; transform: scale(1.05); }
 
-        /* PRODUCT GRID */
-        .product-section {
-            display: none;
-            opacity: 0;
-            padding: 40px;
-            transition: opacity 0.3s ease;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
+        /* NEW: Table Section Styles */
+        #read-this-section {
+            display: none; /* Hidden by default */
+            padding: 100px 40px;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .product-section.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        /* PRODUCT CARD */
-        .product-card {
-            background: #161616;
-            width: 300px;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
-            transition: transform 0.2s ease;
-        }
-        .product-card:hover {
-            transform: translateY(-4px);
-        }
-        .product-card img {
+        .info-table {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            border-collapse: collapse;
+            background: #161616;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 30px;
         }
-        .product-info {
-            padding: 18px;
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #222;
         }
-        .product-info h3 {
-            margin: 0 0 10px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #f2f2f2;
-        }
-        .product-info a {
-            display: inline-block;
-            padding: 10px 18px;
-            background: #2b7cff;
-            border-radius: 6px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .product-info a:hover {
-            background: #1e63cc;
-        }
+        .info-table th { background: #2b7cff; color: white; }
+
+        /* HERO & TABS (Adding a class to hide them) */
+        .main-content-wrapper.hidden { display: none; }
+
+        /* ... Keeping your existing grid/card styles ... */
+        .hero { background: linear-gradient(135deg, #1a1a1a, #111); padding: 100px 20px; text-align: center; }
+        .hero h1 { font-size: 3.2rem; margin-bottom: 10px; font-weight: 700; }
+        .hero p { font-size: 1.2rem; opacity: 0.7; max-width: 800px; margin: 20px auto 0; line-height: 1.6; }
+        .hero button { margin-top: 25px; background: #2b7cff; padding: 14px 32px; border: none; color: white; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .tabs-container { background: #141414; border-bottom: 1px solid #222; padding: 0; overflow-x: auto; }
+        .tabs { display: flex; gap: 14px; padding: 14px 20px; }
+        .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 20px; border-radius: 22px; font-size: 1rem; cursor: pointer; }
+        .tab.active { background: #2b7cff; color: #fff; }
+        .product-section { display: none; opacity: 0; padding: 40px; transition: opacity 0.3s ease; justify-content: center; flex-wrap: wrap; gap: 30px; }
+        .product-section.active { display: flex; opacity: 1; }
+        .product-card { background: #161616; width: 300px; border-radius: 14px; overflow: hidden; box-shadow: 0 0 15px rgba(0, 0, 0, 0.45); }
+        .product-info { padding: 18px; }
+        .product-info h3 { margin: 0 0 10px; font-size: 1.2rem; color: #f2f2f2; }
+        .product-info a { display: inline-block; padding: 10px 18px; background: #2b7cff; border-radius: 6px; color: white; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <h1>Products that I use, asked by you</h1>
-        <p>Since a lot of you asked for the links to the products I use , I have created this website to add all those products and have shared affiliate link.This way it is a win-win situation idea for both you and me. You dont need all of this stuff to feel happy. Remember - the more we buy , the more we get tied to things that take tiny bits of our freedom. This is only for those who have come here to buy anything by choice. Also - if at all you wish to buy the products - kindly complete the purchase through this link only - that is how I can get a small 2-4% commission which will be invested to create better content for you. Thanks..</p>
-        <button id="exploreBtn">Explore Products</button>
-    </section>
+    <button class="read-this-btn" id="toggleReadThis">Read This First</button>
 
-    <div class="tabs-container">
-        <div class="tabs">
-            <button class="tab active" data-cat="fitness">Fitness</button>
-            <button class="tab" data-cat="supplements">Supplements</button>
-            <button class="tab" data-cat="clothing">Clothing</button>
-            <button class="tab" data-cat="personalcare">Personal Care</button>
-            <button class="tab" data-cat="accessories">Accessories</button>
-            <button class="tab" data-cat="category5">Category 5</button>
+    <div id="main-ui" class="main-content-wrapper">
+        <section class="hero">
+            <h1>Products that I use, asked by you</h1>
+            <p>Since a lot of you asked for the links to the products I use...</p>
+            <button id="exploreBtn">Explore Products</button>
+        </section>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" data-cat="fitness">Fitness</button>
+                <button class="tab" data-cat="supplements">Supplements</button>
+                <button class="tab" data-cat="clothing">Clothing</button>
+                <button class="tab" data-cat="personalcare">Personal Care</button>
+                <button class="tab" data-cat="accessories">Accessories</button>
+                <button class="tab" data-cat="category5">Category 5</button>
+            </div>
         </div>
+
+        <div id="fitness" class="product-section active"></div>
+        <div id="supplements" class="product-section"></div>
+        <div id="clothing" class="product-section"></div>
+        <div id="personalcare" class="product-section"></div>
+        <div id="accessories" class="product-section"></div>
+        <div id="category5" class="product-section"></div>
     </div>
 
-    <div id="fitness" class="product-section active"></div>
-    <div id="supplements" class="product-section"></div>
-    <div id="clothing" class="product-section"></div>
-    <div id="personalcare" class="product-section"></div>
-    <div id="accessories" class="product-section"></div>
-    <div id="category5" class="product-section"></div>
+    <div id="read-this-section">
+        <h2>Important Information</h2>
+        <p>Please read these guidelines before proceeding with your purchase.</p>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free shipping on orders above $50 via Amazon.</td>
+                    <td>Check Cart</td>
+                </tr>
+                <tr>
+                    <td>Commissions</td>
+                    <td>I earn 2-4% per sale at no extra cost to you.</td>
+                    <td>Learn More</td>
+                </tr>
+                <tr>
+                    <td>Support</td>
+                    <td>Email support for any link issues.</td>
+                    <td>Contact Me</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script>
+        // ... (Keep your existing 'products' array here) ...
         const products = [
-            
             { name: "bag - F Gear Platoon 46L Large Trekking Backpack", img: "images/fgearbagimage.jpg", buy: "https://amzn.to/4bcXHou", category: "accessories" },
             { name: "Fish Oil", img: "images/fishoilimage.jpg", buy: "https://amzn.to/495aic2", category: "supplements" },
             { name: "Multi Vitamin", img: "images/multivit.jpg", buy: "https://amzn.to/3Ym3fWj", category: "supplements" },
@@ -175,23 +143,18 @@
             { name: "Boots 6", img: "images/thatimage.jpg", buy: "https://www.myntra.com/boots/roadster/the-roadster-lifestyle-co-men-round-toe-slip-on-chelsea-boots/36052126/buy", category: "category5" }
         ];
 
-        const sections = document.querySelectorAll('.product-section');
-        const tabs = document.querySelectorAll('.tab');
-
+        // RENDER PRODUCTS
         products.forEach(p => {
             const container = document.getElementById(p.category);
             const card = document.createElement("div");
             card.classList.add("product-card");
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.name}" />
-                <div class="product-info">
-                    <h3>${p.name}</h3>
-                    <a href="${p.buy}" target="_blank">Buy Now</a>
-                </div>
-            `;
+            card.innerHTML = `<img src="${p.img}" alt="${p.name}" /><div class="product-info"><h3>${p.name}</h3><a href="${p.buy}" target="_blank">Buy Now</a></div>`;
             if (container) container.appendChild(card);
         });
 
+        // TAB NAVIGATION
+        const sections = document.querySelectorAll('.product-section');
+        const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
                 tabs.forEach(t => t.classList.remove("active"));
@@ -202,11 +165,22 @@
             });
         });
 
-        document.getElementById("exploreBtn").addEventListener("click", () => {
-            const firstTab = document.querySelector('.tab[data-cat="fitness"]');
-            firstTab.click();
+        // NEW: TOGGLE LOGIC
+        const toggleBtn = document.getElementById("toggleReadThis");
+        const mainUi = document.getElementById("main-ui");
+        const readSection = document.getElementById("read-this-section");
+
+        toggleBtn.addEventListener("click", () => {
+            if (readSection.style.display === "block") {
+                readSection.style.display = "none";
+                mainUi.style.display = "block";
+                toggleBtn.innerText = "Read This First";
+            } else {
+                readSection.style.display = "block";
+                mainUi.style.display = "none";
+                toggleBtn.innerText = "Back to Products";
+            }
         });
     </script>
-
 </body>
 </html>
