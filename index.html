@@ -344,6 +344,12 @@
         });
 
         document.getElementById("exploreBtn").addEventListener("click", () => {
+            // 1. Scroll to the tabs section smoothly
+            document.querySelector('.tabs-container').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+
+            // 2. Ensure the first category is active
             const firstTab = document.querySelector('.tab[data-cat="fitness"]');
             firstTab.click();
         });
