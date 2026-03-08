@@ -67,24 +67,26 @@
             background: #1e63cc;
         }
 
-        /* TABS */
+        /* TABS - RE-ENGINEERED FOR DESKTOP & MOBILE */
         .tabs-container {
             background: #141414;
             border-bottom: 1px solid #222;
             padding: 0;
             overflow-x: auto;
-            /* Added for better centering on mobile */
-            display: flex;
-            justify-content: center;
+            display: block; /* Changed from flex to block */
+            width: 100%;
         }
+
         .tabs {
             display: flex;
             gap: 14px;
             padding: 14px 20px;
-            /* This ensures it centers on desktop but scrolls correctly on mobile */
-            justify-content: safe center;
-            flex-wrap: nowrap;
+            width: max-content; /* Critical: allows the list to be its own width */
+            margin: 0 auto;     /* Centers the list if it's smaller than the screen */
+            min-width: 100%;    /* Ensures it stays scrollable if larger than screen */
+            justify-content: center; 
         }
+
         .tab {
             background: #1d1d1d;
             color: #ccc;
@@ -95,6 +97,15 @@
             cursor: pointer;
             transition: 0.2s;
             white-space: nowrap;
+            flex-shrink: 0; /* Prevents buttons from squishing on mobile */
+        }
+        
+        /* Mobile-Specific Adjustment */
+        @media (max-width: 600px) {
+            .tabs {
+                justify-content: flex-start; /* Aligns to left so first item isn't cut */
+                margin: 0; 
+            }
         }
         .tab.active {
             background: #2b7cff;
@@ -184,11 +195,6 @@
             color: #2b7cff;
         }
 
-        @media (max-width: 600px) {
-            .tabs {
-                justify-content: flex-start;
-            }
-        }
     </style>
 </head>
 <body>
