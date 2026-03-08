@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Page - Modern Dark Theme</title>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             margin: 0;
             padding: 0;
@@ -69,6 +73,9 @@
             border-bottom: 1px solid #222;
             padding: 0;
             overflow-x: auto;
+            /* Added for better centering on mobile */
+            display: flex;
+            justify-content: center;
         }
         .tabs {
             display: flex;
