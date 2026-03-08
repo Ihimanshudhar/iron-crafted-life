@@ -17,7 +17,83 @@
             color: #e6e6e6;
         }
 
-        /* NEW: Toggle Button Top Right */
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-window {
+            background: #161616;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 16px;
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: #161616;
+            z-index: 10;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .understand-btn {
+            background: #2b7cff;
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Hero & Navigation */
         .read-this-toggle {
             position: fixed;
             top: 20px;
@@ -33,178 +109,87 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        /* HERO - RESTORED */
         .hero {
             background: linear-gradient(135deg, #1a1a1a, #111);
             padding: 100px 20px;
             text-align: center;
         }
-        .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.7;
-            max-width: 800px; 
-            margin: 20px auto 0; 
-            line-height: 1.6; 
-        }
-        .hero button {
-            margin-top: 25px;
-            background: #2b7cff;
-            padding: 14px 32px;
-            border: none;
-            color: white;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 600;
-        }
-        .hero button:hover {
-            background: #1e63cc;
-        }
+        .hero h1 { font-size: 3.2rem; margin-bottom: 10px; font-weight: 700; }
+        .hero p { font-size: 1.2rem; opacity: 0.7; max-width: 800px; margin: 20px auto 0; line-height: 1.6; }
+        .hero button { margin-top: 25px; background: #2b7cff; padding: 14px 32px; border: none; color: white; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
 
-        /* TABS - RE-ENGINEERED FOR DESKTOP & MOBILE */
-        .tabs-container {
-            background: #141414;
-            border-bottom: 1px solid #222;
-            padding: 0;
-            overflow-x: auto;
-            display: block; /* Changed from flex to block */
-            width: 100%;
-        }
+        /* TABS - RE-ENGINEERED */
+        .tabs-container { background: #141414; border-bottom: 1px solid #222; padding: 0; overflow-x: auto; display: block; width: 100%; }
+        .tabs { display: flex; gap: 14px; padding: 14px 20px; width: max-content; margin: 0 auto; min-width: 100%; justify-content: center; }
+        .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 20px; border-radius: 22px; font-size: 1rem; cursor: pointer; transition: 0.2s; white-space: nowrap; flex-shrink: 0; }
+        .tab.active { background: #2b7cff; color: #fff; }
 
-        .tabs {
-            display: flex;
-            gap: 14px;
-            padding: 14px 20px;
-            width: max-content; /* Critical: allows the list to be its own width */
-            margin: 0 auto;     /* Centers the list if it's smaller than the screen */
-            min-width: 100%;    /* Ensures it stays scrollable if larger than screen */
-            justify-content: center; 
-        }
-
-        .tab {
-            background: #1d1d1d;
-            color: #ccc;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 22px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
-            flex-shrink: 0; /* Prevents buttons from squishing on mobile */
-        }
-        
-        /* Mobile-Specific Adjustment */
         @media (max-width: 600px) {
-            .tabs {
-                justify-content: flex-start; /* Aligns to left so first item isn't cut */
-                margin: 0; 
-            }
-        }
-        .tab.active {
-            background: #2b7cff;
-            color: #fff;
-        }
-        .tab:hover {
-            background: #2b2b2b;
+            .tabs { justify-content: flex-start; margin: 0; }
+            .hero h1 { font-size: 2.2rem; }
         }
 
-        /* PRODUCT GRID - RESTORED */
-        .product-section {
-            display: none;
-            opacity: 0;
-            padding: 40px;
-            transition: opacity 0.3s ease;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        .product-section.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        /* PRODUCT CARD - RESTORED */
-        .product-card {
-            background: #161616;
-            width: 300px;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
-            transition: transform 0.2s ease;
-        }
-        .product-card:hover {
-            transform: translateY(-4px);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .product-info {
-            padding: 18px;
-        }
-        .product-info h3 {
-            margin: 0 0 10px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #f2f2f2;
-        }
-        .product-info a {
-            display: inline-block;
-            padding: 10px 18px;
-            background: #2b7cff;
-            border-radius: 6px;
-            color: white;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .product-info a:hover {
-            background: #1e63cc;
-        }
+        /* PRODUCT GRID */
+        .product-section { display: none; opacity: 0; padding: 40px; transition: opacity 0.3s ease; justify-content: center; flex-wrap: wrap; gap: 30px; }
+        .product-section.active { display: flex; opacity: 1; }
+        .product-card { background: #161616; width: 300px; border-radius: 14px; overflow: hidden; box-shadow: 0 0 15px rgba(0, 0, 0, 0.45); transition: transform 0.2s ease; }
+        .product-card:hover { transform: translateY(-4px); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; }
+        .product-info { padding: 18px; }
+        .product-info h3 { margin: 0 0 10px; font-size: 1.2rem; color: #f2f2f2; }
+        .product-info a { display: inline-block; padding: 10px 18px; background: #2b7cff; border-radius: 6px; color: white; text-decoration: none; font-weight: 600; }
 
         /* TABLE VIEW STYLES */
-        #read-this-page {
-            display: none;
-            padding: 80px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .simple-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #161616;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .simple-table th, .simple-table td {
-            padding: 20px;
-            text-align: left;
-            border-bottom: 1px solid #222;
-        }
-        .simple-table th {
-            background: #1a1a1a;
-            color: #2b7cff;
-        }
-
+        .simple-table { width: 100%; border-collapse: collapse; background: #1f1f1f; border-radius: 12px; overflow: hidden; font-size: 0.9rem; }
+        .simple-table th, .simple-table td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
+        .simple-table th { background: #252525; color: #2b7cff; }
     </style>
 </head>
 <body>
+
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h2 style="margin:0;">Important Information</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="line-height:1.6; margin-bottom: 25px; color: #bbb;">
+                    Before you explore, please note: I use these products and provide affiliate links. This helps me earn a 2-4% commission to create better content. 
+                    <strong>Only buy what you truly need.</strong> True freedom comes from owning less.
+                </p>
+                <div style="overflow-x:auto;">
+                    <table class="simple-table">
+                        <thead>
+                            <tr>
+                                <th>Supplement</th>
+                                <th>Function</th>
+                                <th>Naturally found in</th>
+                                <th>Best Practices</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Whey protein</td><td>Muscle repair</td><td>Dairy</td><td>Post-workout</td></tr>
+                            <tr><td>Creatine</td><td>Strength</td><td>Red meat</td><td>Daily, stay hydrated</td></tr>
+                            <tr><td>Fish oil</td><td>Heart/Brain</td><td>Fatty fish</td><td>With fat-containing meals</td></tr>
+                            <tr><td>Vitamin D3</td><td>Immune/Bone</td><td>Sunlight</td><td>With fat-containing meal</td></tr>
+                            <tr><td>Magnesium</td><td>Sleep/Relax</td><td>Leafy greens</td><td>Evening with food</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="understand-btn" id="modalAction">I Understand</button>
+            </div>
+        </div>
+    </div>
 
     <button class="read-this-toggle" id="navToggle">Read This</button>
 
     <div id="main-content">
         <section class="hero">
             <h1>Products that I use, asked by you</h1>
-            <p>Since a lot of you asked for the links to the products I use , I have created this website to add all those products and have shared affiliate link.This way it is a win-win situation idea for both you and me. You dont need all of this stuff to feel happy. Remember - the more we buy , the more we get tied to things that take tiny bits of our freedom. This is only for those who have come here to buy anything by choice. Also - if at all you wish to buy the products - kindly complete the purchase through this link only - that is how I can get a small 2-4% commission which will be invested to create better content for you. Thanks..</p>
+            <p>A curated list of products I personally use. If you choose to buy, using these links supports the channel through a small commission. Thanks for the support!</p>
             <button id="exploreBtn">Explore Products</button>
         </section>
 
@@ -227,79 +212,38 @@
         <div id="category5" class="product-section"></div>
     </div>
 
-    <div id="read-this-page">
-        <h1>Important Information</h1>
-        <table class="simple-table">
-            <thead>
-                <tr>
-                    <th>Supplement</th>
-                    <th>Function</th>
-                    <th>Naturally found in</th>
-                    <th>Best practices & timing for absorption</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Whey protein</td>
-                    <td>Muscle repair and growth, supports recovery</td>
-                    <td>Milk, cheese, yogurt (dairy proteins)</td>
-                    <td>Best taken post-workout or when daily protein intake is low; absorbs quickly; mix with water or milk</td>
-                </tr>
-                <tr>
-                    <td>Creatine</td>
-                    <td>Improves strength, power, and exercise performance</td>
-                    <td>Red meat, fish (small amounts)</td>
-                    <td>Take daily, timing isn’t critical; many prefer post-workout with carbs; stay well hydrated</td>
-                </tr>
-                <tr>
-                    <td>Fish oil (Omega-3s)</td>
-                    <td>Supports heart, brain, and joint health; reduces inflammation</td>
-                    <td>Fatty fish (salmon, sardines, mackerel)</td>
-                    <td>Take with meals, especially those containing fat, to improve absorption</td>
-                </tr>
-                <tr>
-                    <td>Multivitamin</td>
-                    <td>Fills general nutrient gaps; supports overall health</td>
-                    <td>Fruits, vegetables, whole grains, meats</td>
-                    <td>Take with food to improve absorption and reduce stomach upset; earlier in the day is often preferred</td>
-                </tr>
-                <tr>
-                    <td>Collagen</td>
-                    <td>Supports joints, skin, hair, nails, and connective tissue</td>
-                    <td>Bone broth, slow-cooked meats, skin of fish/chicken</td>
-                    <td>Take with vitamin C (or alongside vitamin-C-rich foods); timing is flexible</td>
-                </tr>
-                <tr>
-                    <td>Vitamin D3</td>
-                    <td>Bone health, immune support, hormone function</td>
-                    <td>Sunlight exposure, fatty fish, egg yolks</td>
-                    <td>Take with a fat-containing meal; morning or midday is common</td>
-                </tr>
-                <tr>
-                    <td>Vitamin B12</td>
-                    <td>Red blood cell formation, nerve function, energy metabolism</td>
-                    <td>Meat, fish, dairy, eggs</td>
-                    <td>Can be taken with or without food; often taken in the morning</td>
-                </tr>
-                <tr>
-                    <td>Zinc</td>
-                    <td>Immune function, wound healing, hormone support</td>
-                    <td>Meat, shellfish, seeds, nuts</td>
-                    <td>Take with food to avoid nausea; avoid taking at the same time as magnesium or iron</td>
-                </tr>
-                <tr>
-                    <td>Magnesium</td>
-                    <td>Muscle relaxation, nerve function, sleep support</td>
-                    <td>Leafy greens, nuts, seeds, whole grains</td>
-                    <td>Often taken in the evening; take with food for better tolerance</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
     <script>
+        // MODAL LOGIC
+        const modal = document.getElementById('infoModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalAction = document.getElementById('modalAction');
+        const navToggle = document.getElementById('navToggle');
+
+        // Function to show modal
+        const showModal = () => modal.style.display = 'flex';
+        // Function to hide modal
+        const hideModal = () => modal.style.display = 'none';
+
+        // 1. Show modal on load (only once using localStorage)
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('hasSeenModal')) {
+                showModal();
+            }
+        });
+
+        // 2. Close modal actions
+        closeModal.onclick = hideModal;
+        modalAction.onclick = () => {
+            hideModal();
+            localStorage.setItem('hasSeenModal', 'true'); // Mark as seen
+        };
+
+        // 3. "Read This" button now opens the modal instead of a separate page
+        navToggle.addEventListener('click', showModal);
+
+        // PRODUCT DATA
         const products = [
-            { name: "bag - F Gear Platoon 46L Large Trekking Backpack", img: "images/fgearbagimage.jpg", buy: "https://amzn.to/4bcXHou", category: "accessories" },
+            { name: "bag - F Gear Platoon 46L", img: "images/fgearbagimage.jpg", buy: "https://amzn.to/4bcXHou", category: "accessories" },
             { name: "Fish Oil", img: "images/fishoilimage.jpg", buy: "https://amzn.to/495aic2", category: "supplements" },
             { name: "Multi Vitamin", img: "images/multivit.jpg", buy: "https://amzn.to/3Ym3fWj", category: "supplements" },
             { name: "Collagen", img: "images/collagen.jpg", buy: "https://amzn.to/4jsL4aX", category: "supplements" },
@@ -307,25 +251,18 @@
             { name: "Vitamin B12", img: "images/vitaminb12.jpg", buy: "https://amzn.to/4snSj86", category: "supplements" },
             { name: "Zinc", img: "images/zinc.jpg", buy: "https://amzn.to/44V2KWK", category: "supplements" },
             { name: "Magesium", img: "images/magnesium.jpg", buy: "https://amzn.to/4jpGxGh", category: "supplements" },
-            { name: "Boots 6", img: "images/thatimage.jpg", buy: "https://www.myntra.com/boots/roadster/the-roadster-lifestyle-co-men-round-toe-slip-on-chelsea-boots/36052126/buy", category: "category5" }
+            { name: "Chelsea Boots", img: "images/thatimage.jpg", buy: "https://bit.ly/example", category: "category5" }
         ];
 
-        // Populate Products
         products.forEach(p => {
             const container = document.getElementById(p.category);
             const card = document.createElement("div");
-            card.classList.add("product-card");
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.name}" />
-                <div class="product-info">
-                    <h3>${p.name}</h3>
-                    <a href="${p.buy}" target="_blank">Buy Now</a>
-                </div>
-            `;
+            card.className = "product-card";
+            card.innerHTML = `<img src="${p.img}" alt="${p.name}"><div class="product-info"><h3>${p.name}</h3><a href="${p.buy}" target="_blank">Buy Now</a></div>`;
             if (container) container.appendChild(card);
         });
 
-        // Tab functionality
+        // TABS
         const sections = document.querySelectorAll('.product-section');
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
@@ -333,37 +270,13 @@
                 tabs.forEach(t => t.classList.remove("active"));
                 tab.classList.add("active");
                 sections.forEach(s => s.classList.remove("active"));
-                const cat = tab.getAttribute("data-cat");
-                document.getElementById(cat).classList.add("active");
+                document.getElementById(tab.getAttribute("data-cat")).classList.add("active");
             });
-        });
-
-        // Toggle logic
-        const navToggle = document.getElementById('navToggle');
-        const mainContent = document.getElementById('main-content');
-        const readPage = document.getElementById('read-this-page');
-
-        navToggle.addEventListener('click', () => {
-            if (mainContent.style.display === 'none') {
-                mainContent.style.display = 'block';
-                readPage.style.display = 'none';
-                navToggle.innerText = 'Read This';
-            } else {
-                mainContent.style.display = 'none';
-                readPage.style.display = 'block';
-                navToggle.innerText = 'Back to Store';
-            }
         });
 
         document.getElementById("exploreBtn").addEventListener("click", () => {
-            // 1. Scroll to the tabs section smoothly
-            document.querySelector('.tabs-container').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-
-            // 2. Ensure the first category is active
-            const firstTab = document.querySelector('.tab[data-cat="fitness"]');
-            firstTab.click();
+            document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.tab[data-cat="fitness"]').click();
         });
     </script>
 </body>
