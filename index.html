@@ -5,144 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Page - Modern Dark Theme</title>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        
+        html { scroll-behavior: smooth; }
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: "Inter", Arial, sans-serif;
-            background: #0f0f0f;
-            color: #e6e6e6;
+            background: #0f0f0f; color: #e6e6e6;
         }
 
-        /* MODAL STYLES */
+        /* MODAL STYLES - Centered for all devices */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: none; /* Hidden by default */
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 20px; box-sizing: border-box;
         }
 
         .modal-window {
-            background: #161616;
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            border-radius: 16px;
-            position: relative;
-            overflow-y: auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: #161616; width: 100%; max-width: 650px;
+            max-height: 85vh; border-radius: 20px;
+            position: relative; overflow-y: auto;
             border: 1px solid #333;
             animation: modalFadeIn 0.3s ease-out;
+            display: flex; flex-direction: column;
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid #222;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: #161616;
-            z-index: 10;
+            padding: 20px; border-bottom: 1px solid #222;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; background: #161616; z-index: 10;
         }
 
         .close-modal {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
+            background: none; border: none; color: #888;
+            font-size: 28px; cursor: pointer;
         }
 
-        .modal-body {
-            padding: 30px;
-        }
-
-        .modal-footer {
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #222;
-        }
+        .modal-body { padding: 30px; }
+        .modal-footer { padding: 20px; text-align: center; border-top: 1px solid #222; }
 
         .understand-btn {
-            background: #2b7cff;
-            color: white;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 1rem;
+            background: #2b7cff; color: white; border: none;
+            padding: 12px 40px; border-radius: 8px; font-weight: 600; cursor: pointer;
         }
 
         /* Hero & Navigation */
         .read-this-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: #2b7cff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: #2b7cff; color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #1a1a1a, #111);
-            padding: 100px 20px;
-            text-align: center;
-        }
-        .hero h1 { font-size: 3.2rem; margin-bottom: 10px; font-weight: 700; }
-        .hero p { font-size: 1.2rem; opacity: 0.7; max-width: 800px; margin: 20px auto 0; line-height: 1.6; }
-        .hero button { margin-top: 25px; background: #2b7cff; padding: 14px 32px; border: none; color: white; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .hero { background: linear-gradient(135deg, #1a1a1a, #111); padding: 100px 20px; text-align: center; }
+        .hero h1 { font-size: 3rem; margin: 0; }
+        .hero p { opacity: 0.7; max-width: 700px; margin: 20px auto; line-height: 1.6; }
+        .hero button { background: #2b7cff; padding: 14px 32px; border: none; color: white; border-radius: 8px; cursor: pointer; font-weight: 600; }
 
-        /* TABS - RE-ENGINEERED */
-        .tabs-container { background: #141414; border-bottom: 1px solid #222; padding: 0; overflow-x: auto; display: block; width: 100%; }
-        .tabs { display: flex; gap: 14px; padding: 14px 20px; width: max-content; margin: 0 auto; min-width: 100%; justify-content: center; }
-        .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 20px; border-radius: 22px; font-size: 1rem; cursor: pointer; transition: 0.2s; white-space: nowrap; flex-shrink: 0; }
+        /* TABS - Fixed Desktop Slider */
+        .tabs-container { 
+            background: #141414; border-bottom: 1px solid #222; 
+            width: 100%; position: sticky; top: 0; z-index: 100;
+        }
+        .tabs { 
+            display: flex; gap: 12px; padding: 15px; 
+            overflow-x: auto; scrollbar-width: none; /* Firefox */
+            justify-content: center;
+        }
+        .tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        .tab { 
+            background: #1d1d1d; color: #ccc; border: none; 
+            padding: 10px 22px; border-radius: 25px; cursor: pointer; 
+            white-space: nowrap; flex-shrink: 0; transition: 0.3s;
+        }
         .tab.active { background: #2b7cff; color: #fff; }
 
-        @media (max-width: 600px) {
-            .tabs { justify-content: flex-start; margin: 0; }
+        @media (max-width: 768px) {
+            .tabs { justify-content: flex-start; }
             .hero h1 { font-size: 2.2rem; }
         }
 
         /* PRODUCT GRID */
-        .product-section { display: none; opacity: 0; padding: 40px; transition: opacity 0.3s ease; justify-content: center; flex-wrap: wrap; gap: 30px; }
-        .product-section.active { display: flex; opacity: 1; }
-        .product-card { background: #161616; width: 300px; border-radius: 14px; overflow: hidden; box-shadow: 0 0 15px rgba(0, 0, 0, 0.45); transition: transform 0.2s ease; }
-        .product-card:hover { transform: translateY(-4px); }
+        .product-section { display: none; padding: 40px; justify-content: center; flex-wrap: wrap; gap: 25px; }
+        .product-section.active { display: flex; }
+        
+        .product-card { 
+            background: #161616; width: 280px; border-radius: 16px; 
+            overflow: hidden; border: 1px solid #222; position: relative;
+        }
         .product-card img { width: 100%; height: 200px; object-fit: cover; }
-        .product-info { padding: 18px; }
-        .product-info h3 { margin: 0 0 10px; font-size: 1.2rem; color: #f2f2f2; }
-        .product-info a { display: inline-block; padding: 10px 18px; background: #2b7cff; border-radius: 6px; color: white; text-decoration: none; font-weight: 600; }
+        
+        .info-icon {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(0,0,0,0.6); color: white;
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-family: serif; font-style: italic; font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
 
-        /* TABLE VIEW STYLES */
-        .simple-table { width: 100%; border-collapse: collapse; background: #1f1f1f; border-radius: 12px; overflow: hidden; font-size: 0.9rem; }
-        .simple-table th, .simple-table td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
-        .simple-table th { background: #252525; color: #2b7cff; }
+        .product-info { padding: 20px; text-align: center; }
+        .product-info h3 { margin: 0 0 15px; font-size: 1.1rem; }
+        .product-info a { 
+            display: block; padding: 10px; background: #2b7cff; 
+            border-radius: 8px; color: white; text-decoration: none; font-weight: 600;
+        }
+
+        .simple-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .simple-table td, .simple-table th { padding: 12px; border-bottom: 1px solid #333; text-align: left; }
+        .simple-table th { color: #2b7cff; }
     </style>
 </head>
 <body>
@@ -151,132 +128,132 @@
         <div class="modal-window">
             <div class="modal-header">
                 <h2 style="margin:0;">Important Information</h2>
-                <button class="close-modal" id="closeModal">&times;</button>
+                <button class="close-modal" onclick="hideModal('infoModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p style="line-height:1.6; margin-bottom: 25px; color: #bbb;">
-                    Before you explore, please note: I use these products and provide affiliate links. This helps me earn a 2-4% commission to create better content. 
-                    <strong>Only buy what you truly need.</strong> True freedom comes from owning less.
-                </p>
-                <div style="overflow-x:auto;">
-                    <table class="simple-table">
-                        <thead>
-                            <tr>
-                                <th>Supplement</th>
-                                <th>Function</th>
-                                <th>Naturally found in</th>
-                                <th>Best Practices</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Whey protein</td><td>Muscle repair</td><td>Dairy</td><td>Post-workout</td></tr>
-                            <tr><td>Creatine</td><td>Strength</td><td>Red meat</td><td>Daily, stay hydrated</td></tr>
-                            <tr><td>Fish oil</td><td>Heart/Brain</td><td>Fatty fish</td><td>With fat-containing meals</td></tr>
-                            <tr><td>Vitamin D3</td><td>Immune/Bone</td><td>Sunlight</td><td>With fat-containing meal</td></tr>
-                            <tr><td>Magnesium</td><td>Sleep/Relax</td><td>Leafy greens</td><td>Evening with food</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <p>I use these products and provide affiliate links (2-4% commission). <strong>Only buy what you truly need.</strong></p>
+                <table class="simple-table">
+                    <thead><tr><th>Supplement</th><th>Function</th><th>Source</th></tr></thead>
+                    <tbody>
+                        <tr><td>Whey</td><td>Muscle</td><td>Dairy</td></tr>
+                        <tr><td>Creatine</td><td>Strength</td><td>Red Meat</td></tr>
+                        <tr><td>Fish Oil</td><td>Heart/Brain</td><td>Fatty Fish</td></tr>
+                        <tr><td>Vitamin D3</td><td>Bone/Immune</td><td>Sunlight</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="modal-footer">
-                <button class="understand-btn" id="modalAction">I Understand</button>
-            </div>
+            <div class="modal-footer"><button class="understand-btn" onclick="hideModal('infoModal')">I Understand</button></div>
         </div>
     </div>
 
-    <button class="read-this-toggle" id="navToggle">Read This</button>
+    <div class="modal-overlay" id="productDetailModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h2 id="detailTitle" style="margin:0;">Product Info</h2>
+                <button class="close-modal" onclick="hideModal('productDetailModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="detailBody">
+                </div>
+            <div class="modal-footer"><button class="understand-btn" onclick="hideModal('productDetailModal')">Close</button></div>
+        </div>
+    </div>
+
+    <button class="read-this-toggle" onclick="showModal('infoModal')">Read This</button>
 
     <div id="main-content">
         <section class="hero">
-            <h1>Products that I use, asked by you</h1>
-            <p>A curated list of products I personally use. If you choose to buy, using these links supports the channel through a small commission. Thanks for the support!</p>
-            <button id="exploreBtn">Explore Products</button>
+            <h1>Products that I use</h1>
+            <p>Curated list of essentials. Using these links supports the channel. Respect your wallet—buy only what's necessary.</p>
+            <button onclick="document.querySelector('.tabs-container').scrollIntoView();">Explore Products</button>
         </section>
 
         <div class="tabs-container">
             <div class="tabs">
-                <button class="tab active" data-cat="fitness">Fitness</button>
-                <button class="tab" data-cat="supplements">Supplements</button>
-                <button class="tab" data-cat="clothing">Clothing</button>
-                <button class="tab" data-cat="personalcare">Personal Care</button>
+                <button class="tab active" data-cat="supplements">Supplements</button>
                 <button class="tab" data-cat="accessories">Accessories</button>
-                <button class="tab" data-cat="category5">Category 5</button>
+                <button class="tab" data-cat="fitness">Fitness</button>
+                <button class="tab" data-cat="clothing">Clothing</button>
             </div>
         </div>
 
-        <div id="fitness" class="product-section active"></div>
-        <div id="supplements" class="product-section"></div>
-        <div id="clothing" class="product-section"></div>
-        <div id="personalcare" class="product-section"></div>
+        <div id="supplements" class="product-section active"></div>
         <div id="accessories" class="product-section"></div>
-        <div id="category5" class="product-section"></div>
+        <div id="fitness" class="product-section"></div>
+        <div id="clothing" class="product-section"></div>
     </div>
 
     <script>
-        // MODAL LOGIC
-        const modal = document.getElementById('infoModal');
-        const closeModal = document.getElementById('closeModal');
-        const modalAction = document.getElementById('modalAction');
-        const navToggle = document.getElementById('navToggle');
+        const showModal = (id) => document.getElementById(id).style.display = 'flex';
+        const hideModal = (id) => document.getElementById(id).style.display = 'none';
 
-        // Function to show modal
-        const showModal = () => modal.style.display = 'flex';
-        // Function to hide modal
-        const hideModal = () => modal.style.display = 'none';
+        // Show main modal on every reload
+        window.onload = () => showModal('infoModal');
 
-        // 1. Show modal on load (only once using localStorage)
-        window.addEventListener('load', () => {
-            if (!localStorage.getItem('hasSeenModal')) {
-                showModal();
+        const productData = [
+            { 
+                name: "Fish Oil", 
+                img: "images/fishoilimage.jpg", 
+                buy: "https://amzn.to/495aic2", 
+                category: "supplements",
+                dosage: "1-2 capsules daily",
+                usage: "Take with a meal containing healthy fats for maximum absorption. Great for heart and cognitive health."
+            },
+            { 
+                name: "Vitamin D3", 
+                img: "images/vitamind3.jpg", 
+                buy: "https://amzn.to/49rUUFC", 
+                category: "supplements",
+                dosage: "2000-5000 IU daily",
+                usage: "Best taken in the morning with breakfast. Essential for bone density and immune function."
+            },
+            { 
+                name: "F Gear Platoon 46L", 
+                img: "images/fgearbagimage.jpg", 
+                buy: "https://amzn.to/4bcXHou", 
+                category: "accessories",
+                dosage: "N/A",
+                usage: "Heavy duty travel/gym bag. Use compression straps to balance weight."
+            }
+        ];
+
+        function openProductInfo(name) {
+            const p = productData.find(x => x.name === name);
+            if(p) {
+                document.getElementById('detailTitle').innerText = p.name;
+                document.getElementById('detailBody').innerHTML = `
+                    <p><strong>Recommended Dosage:</strong> ${p.dosage}</p>
+                    <p><strong>How to use:</strong> ${p.usage}</p>
+                    <p style="font-size: 0.85rem; color: #888; margin-top:20px;">*Consult with a healthcare professional before starting any new supplement regimen.</p>
+                `;
+                showModal('productDetailModal');
+            }
+        }
+
+        productData.forEach(p => {
+            const container = document.getElementById(p.category);
+            if (container) {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <div class="info-icon" onclick="openProductInfo('${p.name}')">i</div>
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <a href="${p.buy}" target="_blank">Buy Now</a>
+                    </div>
+                `;
+                container.appendChild(card);
             }
         });
 
-        // 2. Close modal actions
-        closeModal.onclick = hideModal;
-        modalAction.onclick = () => {
-            hideModal();
-            localStorage.setItem('hasSeenModal', 'true'); // Mark as seen
-        };
-
-        // 3. "Read This" button now opens the modal instead of a separate page
-        navToggle.addEventListener('click', showModal);
-
-        // PRODUCT DATA
-        const products = [
-            { name: "bag - F Gear Platoon 46L", img: "images/fgearbagimage.jpg", buy: "https://amzn.to/4bcXHou", category: "accessories" },
-            { name: "Fish Oil", img: "images/fishoilimage.jpg", buy: "https://amzn.to/495aic2", category: "supplements" },
-            { name: "Multi Vitamin", img: "images/multivit.jpg", buy: "https://amzn.to/3Ym3fWj", category: "supplements" },
-            { name: "Collagen", img: "images/collagen.jpg", buy: "https://amzn.to/4jsL4aX", category: "supplements" },
-            { name: "Vitamin D3", img: "images/vitamind3.jpg", buy: "https://amzn.to/49rUUFC", category: "supplements" },
-            { name: "Vitamin B12", img: "images/vitaminb12.jpg", buy: "https://amzn.to/4snSj86", category: "supplements" },
-            { name: "Zinc", img: "images/zinc.jpg", buy: "https://amzn.to/44V2KWK", category: "supplements" },
-            { name: "Magesium", img: "images/magnesium.jpg", buy: "https://amzn.to/4jpGxGh", category: "supplements" },
-            { name: "Chelsea Boots", img: "images/thatimage.jpg", buy: "https://bit.ly/example", category: "category5" }
-        ];
-
-        products.forEach(p => {
-            const container = document.getElementById(p.category);
-            const card = document.createElement("div");
-            card.className = "product-card";
-            card.innerHTML = `<img src="${p.img}" alt="${p.name}"><div class="product-info"><h3>${p.name}</h3><a href="${p.buy}" target="_blank">Buy Now</a></div>`;
-            if (container) container.appendChild(card);
-        });
-
-        // TABS
-        const sections = document.querySelectorAll('.product-section');
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
+        // Tab Switching Logic
+        document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener("click", () => {
-                tabs.forEach(t => t.classList.remove("active"));
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove("active"));
+                document.querySelectorAll('.product-section').forEach(s => s.classList.remove("active"));
                 tab.classList.add("active");
-                sections.forEach(s => s.classList.remove("active"));
                 document.getElementById(tab.getAttribute("data-cat")).classList.add("active");
             });
-        });
-
-        document.getElementById("exploreBtn").addEventListener("click", () => {
-            document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth' });
-            document.querySelector('.tab[data-cat="fitness"]').click();
         });
     </script>
 </body>
