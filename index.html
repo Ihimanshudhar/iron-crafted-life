@@ -23,12 +23,13 @@
         }
 
         .modal-window {
-            background: #161616; width: 100%; max-width: 650px;
+            background: #161616; width: 100%; max-width: 600px;
             max-height: 85vh; border-radius: 20px;
             position: relative; overflow-y: auto;
             border: 1px solid #333;
             animation: modalFadeIn 0.3s ease-out;
             display: flex; flex-direction: column;
+            text-align: center;
         }
 
         @keyframes modalFadeIn {
@@ -47,12 +48,13 @@
             font-size: 28px; cursor: pointer;
         }
 
-        .modal-body { padding: 30px; }
-        .modal-footer { padding: 20px; text-align: center; border-top: 1px solid #222; }
+        .modal-body { padding: 30px; text-align: left; }
+        .modal-footer { padding: 20px; border-top: 1px solid #222; }
 
         .understand-btn {
             background: #2b7cff; color: white; border: none;
             padding: 12px 40px; border-radius: 8px; font-weight: 600; cursor: pointer;
+            width: 100%;
         }
 
         /* Hero & Navigation */
@@ -63,7 +65,7 @@
         }
 
         .hero { background: linear-gradient(135deg, #1a1a1a, #111); padding: 100px 20px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin: 0; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; font-weight: 800; }
         .hero p { opacity: 0.7; max-width: 700px; margin: 20px auto; line-height: 1.6; }
         .hero button { background: #2b7cff; padding: 14px 32px; border: none; color: white; border-radius: 8px; cursor: pointer; font-weight: 600; }
 
@@ -74,22 +76,19 @@
         }
         .tabs { 
             display: flex; gap: 12px; padding: 15px; 
-            overflow-x: auto; scrollbar-width: none; /* Firefox */
+            overflow-x: auto; scrollbar-width: none;
             justify-content: center;
         }
-        .tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .tabs::-webkit-scrollbar { display: none; }
 
         .tab { 
             background: #1d1d1d; color: #ccc; border: none; 
             padding: 10px 22px; border-radius: 25px; cursor: pointer; 
-            white-space: nowrap; flex-shrink: 0; transition: 0.3s;
+            white-space: nowrap; transition: 0.3s;
         }
         .tab.active { background: #2b7cff; color: #fff; }
 
-        @media (max-width: 768px) {
-            .tabs { justify-content: flex-start; }
-            .hero h1 { font-size: 2.2rem; }
-        }
+        @media (max-width: 768px) { .tabs { justify-content: flex-start; } }
 
         /* PRODUCT GRID */
         .product-section { display: none; padding: 40px; justify-content: center; flex-wrap: wrap; gap: 25px; }
@@ -98,48 +97,47 @@
         .product-card { 
             background: #161616; width: 280px; border-radius: 16px; 
             overflow: hidden; border: 1px solid #222; position: relative;
+            transition: transform 0.2s;
         }
+        .product-card:hover { transform: translateY(-5px); border-color: #333; }
         .product-card img { width: 100%; height: 200px; object-fit: cover; }
         
         .info-icon {
-            position: absolute; top: 10px; right: 10px;
-            background: rgba(0,0,0,0.6); color: white;
-            width: 28px; height: 28px; border-radius: 50%;
+            position: absolute; top: 12px; right: 12px;
+            background: rgba(0,0,0,0.7); color: #2b7cff;
+            width: 30px; height: 30px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-family: serif; font-style: italic; font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.3);
+            cursor: pointer; font-weight: bold; font-family: serif;
+            border: 1px solid #2b7cff; font-size: 18px;
         }
 
         .product-info { padding: 20px; text-align: center; }
         .product-info h3 { margin: 0 0 15px; font-size: 1.1rem; }
         .product-info a { 
-            display: block; padding: 10px; background: #2b7cff; 
+            display: block; padding: 12px; background: #2b7cff; 
             border-radius: 8px; color: white; text-decoration: none; font-weight: 600;
         }
 
         .simple-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .simple-table td, .simple-table th { padding: 12px; border-bottom: 1px solid #333; text-align: left; }
-        .simple-table th { color: #2b7cff; }
     </style>
 </head>
 <body>
 
-    <div class="modal-overlay" id="infoModal">
+    <div class="modal-overlay" id="infoModal" style="display: flex;">
         <div class="modal-window">
             <div class="modal-header">
                 <h2 style="margin:0;">Important Information</h2>
                 <button class="close-modal" onclick="hideModal('infoModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p>I use these products and provide affiliate links (2-4% commission). <strong>Only buy what you truly need.</strong></p>
+                <p>I personally use these products. If you buy through these links, I earn a 2-4% commission at no extra cost to you.</p>
+                <p><strong>Note:</strong> Only buy what you truly need. Minimalism is the ultimate freedom.</p>
                 <table class="simple-table">
-                    <thead><tr><th>Supplement</th><th>Function</th><th>Source</th></tr></thead>
-                    <tbody>
-                        <tr><td>Whey</td><td>Muscle</td><td>Dairy</td></tr>
-                        <tr><td>Creatine</td><td>Strength</td><td>Red Meat</td></tr>
-                        <tr><td>Fish Oil</td><td>Heart/Brain</td><td>Fatty Fish</td></tr>
-                        <tr><td>Vitamin D3</td><td>Bone/Immune</td><td>Sunlight</td></tr>
-                    </tbody>
+                    <tr style="color: #2b7cff;"><th>Supplement</th><th>Function</th></tr>
+                    <tr><td>Fish Oil</td><td>Brain & Heart</td></tr>
+                    <tr><td>Creatine</td><td>Power & Memory</td></tr>
+                    <tr><td>Magnesium</td><td>Sleep & Recovery</td></tr>
                 </table>
             </div>
             <div class="modal-footer"><button class="understand-btn" onclick="hideModal('infoModal')">I Understand</button></div>
@@ -149,12 +147,11 @@
     <div class="modal-overlay" id="productDetailModal">
         <div class="modal-window">
             <div class="modal-header">
-                <h2 id="detailTitle" style="margin:0;">Product Info</h2>
+                <h2 id="detailTitle" style="margin:0;">Info</h2>
                 <button class="close-modal" onclick="hideModal('productDetailModal')">&times;</button>
             </div>
-            <div class="modal-body" id="detailBody">
-                </div>
-            <div class="modal-footer"><button class="understand-btn" onclick="hideModal('productDetailModal')">Close</button></div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer"><button class="understand-btn" onclick="hideModal('productDetailModal')">Got it</button></div>
         </div>
     </div>
 
@@ -162,8 +159,8 @@
 
     <div id="main-content">
         <section class="hero">
-            <h1>Products that I use</h1>
-            <p>Curated list of essentials. Using these links supports the channel. Respect your wallet—buy only what's necessary.</p>
+            <h1>Curated Essentials</h1>
+            <p>Products I actually use. No fluff, just what works.</p>
             <button onclick="document.querySelector('.tabs-container').scrollIntoView();">Explore Products</button>
         </section>
 
@@ -172,47 +169,84 @@
                 <button class="tab active" data-cat="supplements">Supplements</button>
                 <button class="tab" data-cat="accessories">Accessories</button>
                 <button class="tab" data-cat="fitness">Fitness</button>
-                <button class="tab" data-cat="clothing">Clothing</button>
             </div>
         </div>
 
         <div id="supplements" class="product-section active"></div>
         <div id="accessories" class="product-section"></div>
         <div id="fitness" class="product-section"></div>
-        <div id="clothing" class="product-section"></div>
     </div>
 
     <script>
         const showModal = (id) => document.getElementById(id).style.display = 'flex';
         const hideModal = (id) => document.getElementById(id).style.display = 'none';
 
-        // Show main modal on every reload
-        window.onload = () => showModal('infoModal');
-
+        // --- THE PRODUCT DATA ---
+        // You can move this whole array to a separate file later!
         const productData = [
             { 
                 name: "Fish Oil", 
-                img: "images/fishoilimage.jpg", 
+                img: "images/fishoil.jpg", 
                 buy: "https://amzn.to/495aic2", 
                 category: "supplements",
-                dosage: "1-2 capsules daily",
-                usage: "Take with a meal containing healthy fats for maximum absorption. Great for heart and cognitive health."
+                dosage: "1000-2000mg total EPA/DHA daily",
+                usage: "Take with your largest meal of the day to avoid 'fishy burps' and improve absorption."
             },
             { 
-                name: "Vitamin D3", 
-                img: "images/vitamind3.jpg", 
-                buy: "https://amzn.to/49rUUFC", 
+                name: "Ashwagandha", 
+                img: "images/ashwa.jpg", 
+                buy: "https://amzn.to/4uEvUor", 
                 category: "supplements",
-                dosage: "2000-5000 IU daily",
-                usage: "Best taken in the morning with breakfast. Essential for bone density and immune function."
+                dosage: "300-600mg daily",
+                usage: "Great for cortisol management. Take in the evening if it makes you relaxed, or morning for stress support."
+            },
+            { 
+                name: "D3 + K2", 
+                img: "images/d3k2.jpg", 
+                buy: "https://amzn.to/4bI3Ngt", 
+                category: "supplements",
+                dosage: "2000-5000 IU",
+                usage: "Always take with a meal that contains fat. K2 ensures the calcium goes to your bones, not your arteries."
+            },
+            { 
+                name: "Vitamin B12", 
+                img: "images/b12.jpg", 
+                buy: "https://amzn.to/4snSj86", 
+                category: "supplements",
+                dosage: "500-1000mcg",
+                usage: "Best taken on an empty stomach in the morning for an energy boost."
+            },
+            { 
+                name: "Collagen", 
+                img: "images/collagen.jpg", 
+                buy: "https://amzn.to/3NiXiaH", 
+                category: "supplements",
+                dosage: "10-20g daily",
+                usage: "Mix into your morning coffee or smoothie. Great for joint health and skin elasticity."
+            },
+            { 
+                name: "Magnesium", 
+                img: "images/magnesium.jpg", 
+                buy: "https://amzn.to/4btTY4D", 
+                category: "supplements",
+                dosage: "200-400mg",
+                usage: "Take 30-60 minutes before bed. Helps with muscle relaxation and deep sleep."
+            },
+            { 
+                name: "Multivitamin", 
+                img: "images/multi.jpg", 
+                buy: "https://amzn.to/3Ym3fWj", 
+                category: "supplements",
+                dosage: "1 tablet/capsule daily",
+                usage: "Take with breakfast. Insurance policy for your micronutrients."
             },
             { 
                 name: "F Gear Platoon 46L", 
-                img: "images/fgearbagimage.jpg", 
+                img: "images/bag.jpg", 
                 buy: "https://amzn.to/4bcXHou", 
                 category: "accessories",
                 dosage: "N/A",
-                usage: "Heavy duty travel/gym bag. Use compression straps to balance weight."
+                usage: "Durable gym/travel bag. Pack heavy items at the bottom close to your back."
             }
         ];
 
@@ -221,14 +255,16 @@
             if(p) {
                 document.getElementById('detailTitle').innerText = p.name;
                 document.getElementById('detailBody').innerHTML = `
-                    <p><strong>Recommended Dosage:</strong> ${p.dosage}</p>
-                    <p><strong>How to use:</strong> ${p.usage}</p>
-                    <p style="font-size: 0.85rem; color: #888; margin-top:20px;">*Consult with a healthcare professional before starting any new supplement regimen.</p>
+                    <p style="color: #2b7cff; font-weight: bold; margin-bottom: 5px;">Suggested Dosage:</p>
+                    <p style="margin-top: 0;">${p.dosage}</p>
+                    <p style="color: #2b7cff; font-weight: bold; margin-bottom: 5px;">How to use:</p>
+                    <p style="margin-top: 0; line-height: 1.5;">${p.usage}</p>
                 `;
                 showModal('productDetailModal');
             }
         }
 
+        // Render products
         productData.forEach(p => {
             const container = document.getElementById(p.category);
             if (container) {
@@ -246,7 +282,7 @@
             }
         });
 
-        // Tab Switching Logic
+        // Tab Switcher
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener("click", () => {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove("active"));
