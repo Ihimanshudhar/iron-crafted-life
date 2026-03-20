@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Page - Premium Dark Theme</title>
+    <title>Product Page - Modern Dark Theme</title>
     <style>
         html { scroll-behavior: smooth; }
         body {
@@ -47,51 +47,69 @@
         /* HERO & SEARCH */
         .hero { background: linear-gradient(135deg, #1a1a1a, #111); padding: 100px 20px; text-align: center; }
         .hero h1 { font-size: 3rem; margin: 0; }
-        .search-container { margin: 30px auto; max-width: 500px; padding: 0 20px; }
-        #productSearch {
-            width: 100%; padding: 15px 25px; border-radius: 30px;
-            border: 1px solid #333; background: #161616; color: white;
-            font-size: 1rem; outline: none; transition: 0.3s; border: 2px solid transparent;
-        }
-        #productSearch:focus { border-color: #2b7cff; background: #1d1d1d; }
+        .hero p { opacity: 0.7; max-width: 700px; margin: 20px auto; line-height: 1.6; }
 
-        /* TABS NAVIGATION */
-        .tabs-container { 
-            background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 1px solid #222; width: 100%; position: sticky; top: 0; z-index: 100;
+        /* FIXED SEARCH BAR BOX-MODEL */
+        .search-outer {
+            margin: 30px auto;
+            max-width: 400px;
+            width: 90%; /* Prevents overflow on mobile */
+            position: relative;
         }
+        #productSearch {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid #333;
+            background: #1d1d1d;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box; /* Crucial for mobile sizing */
+        }
+
+        /* SUGGESTIONS DROPDOWN */
+        #suggestions {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: #1d1d1d; border: 1px solid #333;
+            border-radius: 10px; z-index: 1500; display: none;
+            margin-top: 5px; max-height: 200px; overflow-y: auto;
+        }
+        .suggestion-item { padding: 10px 20px; cursor: pointer; border-bottom: 1px solid #222; }
+        .suggestion-item:hover { background: #2b7cff; }
+
+        /* TABS */
+        .tabs-container { background: #141414; border-bottom: 1px solid #222; width: 100%; position: sticky; top: 0; z-index: 100; }
         .tabs { display: flex; gap: 12px; padding: 15px; overflow-x: auto; scrollbar-width: none; justify-content: center; }
         .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 22px; border-radius: 25px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
         .tab.active { background: #2b7cff; color: #fff; }
 
-        /* PRODUCT SECTIONS */
+        /* PRODUCT GRID */
         .product-section { display: none; padding: 40px 20px; justify-content: center; flex-wrap: wrap; gap: 25px; }
         .product-section.active { display: flex; }
         
-        /* SEARCH RESULTS VIEW */
         #search-results-section { display: none; padding: 40px 20px; justify-content: center; flex-wrap: wrap; gap: 25px; }
         .search-mode #search-results-section { display: flex; }
         .search-mode .tabs-container, .search-mode .product-section { display: none !important; }
 
-        /* PRODUCT CARDS */
-        .product-card { 
-            background: #161616; width: 280px; border-radius: 18px; 
-            overflow: hidden; border: 1px solid #222; position: relative; transition: 0.3s;
-        }
-        .product-card:hover { transform: translateY(-8px); border-color: #333; }
+        .product-card { background: #161616; width: 280px; border-radius: 16px; overflow: hidden; border: 1px solid #222; position: relative; }
         .product-card img { width: 100%; height: 200px; object-fit: cover; }
-        .info-icon {
-            position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); 
-            color: white; width: 30px; height: 30px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
+        
+        /* ICONS */
+        .info-icon { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .share-icon { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+
         .product-info { padding: 20px; text-align: center; }
         .product-info h3 { margin: 0 0 15px; font-size: 1.1rem; }
         .product-info a { display: block; padding: 10px; background: #2b7cff; border-radius: 8px; color: white; text-decoration: none; font-weight: 600; }
 
-        #noResults { display: none; text-align: center; width: 100%; padding: 40px; color: #666; font-size: 1.2rem; }
+        #noResults { display: none; text-align: center; padding: 40px; color: #888; }
 
+        /* FOOTER */
         footer { background: #111; padding: 40px; text-align: center; border-top: 1px solid #222; margin-top: 50px; }
+        .social-links { margin-bottom: 15px; }
+        .social-links a { color: #2b7cff; text-decoration: none; margin: 0 10px; font-weight: 600; }
+
         .info-label { color: #2b7cff; font-weight: 600; margin-top: 15px; display: block; }
         .info-text { margin: 4px 0 10px 0; line-height: 1.5; color: #ccc; }
     </style>
@@ -101,10 +119,14 @@
     <div class="modal-overlay" id="infoModal">
         <div class="modal-window">
             <div class="modal-header"><h2>Important Information</h2><button class="close-modal" onclick="hideModal('infoModal')">&times;</button></div>
-            <div class="modal-body"><p>I use these products and provide affiliate links. Only buy what you truly need.</p></div>
+            <div class="modal-body">
+                <p>I use these products and provide affiliate links (2-4% commission). <strong>Only buy what you truly need.</strong></p>
+                <p>Knowledge is power—click the "i" on any product to see the supplement guide.</p>
+            </div>
             <div class="modal-footer"><button class="understand-btn" onclick="hideModal('infoModal')">I Understand</button></div>
         </div>
     </div>
+
     <div class="modal-overlay" id="productDetailModal">
         <div class="modal-window">
             <div class="modal-header"><h2 id="detailTitle">Product Info</h2><button class="close-modal" onclick="hideModal('productDetailModal')">&times;</button></div>
@@ -117,9 +139,12 @@
 
     <div id="main-content">
         <section class="hero">
-            <h1>My Essentials</h1>
-            <div class="search-container">
-                <input type="text" id="productSearch" placeholder="Search across all categories..." oninput="handleGlobalSearch()">
+            <h1>Products that I use</h1>
+            <p>Curated list of essentials. Using these links supports the channel. Respect your wallet—buy only what's necessary.</p>
+            
+            <div class="search-outer">
+                <input type="text" id="productSearch" placeholder="Search products..." oninput="handleGlobalSearch()" autocomplete="off">
+                <div id="suggestions"></div>
             </div>
         </section>
 
@@ -133,7 +158,7 @@
         </div>
 
         <div id="search-results-section"></div>
-        <div id="noResults">Mmmh, daddy can't find that. Try something else.</div>
+        <div id="noResults">No products found.</div>
 
         <div id="supplements" class="product-section active"></div>
         <div id="accessories" class="product-section"></div>
@@ -141,7 +166,13 @@
         <div id="clothing" class="product-section"></div>
     </div>
 
-    <footer><p>&copy; 2026. Curated for the best.</p></footer>
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com/yourlink" target="_blank">Instagram</a>
+            <a href="https://youtube.com/yourlink" target="_blank">YouTube</a>
+        </div>
+        <p style="color: #444; font-size: 0.8rem;">&copy; 2026. All rights reserved.</p>
+    </footer>
 
     <script src="product.js"></script>
     <script>
@@ -149,11 +180,20 @@
         const hideModal = (id) => document.getElementById(id).style.display = 'none';
         window.onload = () => showModal('infoModal');
 
+        function shareProduct(name, url) {
+            if (navigator.share) {
+                navigator.share({ title: name, url: url }).catch(console.error);
+            } else {
+                alert("Link copied: " + url);
+            }
+        }
+
         function createCard(p) {
             const card = document.createElement("div");
             card.className = "product-card";
             card.innerHTML = `
                 <div class="info-icon" onclick="openProductInfo('${p.name}')">i</div>
+                <div class="share-icon" onclick="shareProduct('${p.name}', '${p.buy}')">🔗</div>
                 <img src="${p.img}" alt="${p.name}">
                 <div class="product-info">
                     <h3>${p.name}</h3>
@@ -163,7 +203,6 @@
             return card;
         }
 
-        // Load Initial Sections
         if (typeof productData !== 'undefined') {
             productData.forEach(p => {
                 const container = document.getElementById(p.category);
@@ -171,30 +210,42 @@
             });
         }
 
-        // THE "DADDY" SEARCH LOGIC
         function handleGlobalSearch() {
             const query = document.getElementById('productSearch').value.toLowerCase().trim();
             const body = document.getElementById('pageBody');
             const resultsContainer = document.getElementById('search-results-section');
+            const suggestions = document.getElementById('suggestions');
             const noResults = document.getElementById('noResults');
             
+            suggestions.innerHTML = '';
             if (query.length > 0) {
                 body.classList.add('search-mode');
-                resultsContainer.innerHTML = ''; 
+                resultsContainer.innerHTML = '';
                 
-                const matches = productData.filter(p => 
-                    p.name.toLowerCase().includes(query) || 
-                    p.category.toLowerCase().includes(query)
-                );
-
+                const matches = productData.filter(p => p.name.toLowerCase().includes(query));
+                
                 if (matches.length > 0) {
                     noResults.style.display = 'none';
-                    matches.forEach(m => resultsContainer.appendChild(createCard(m)));
+                    suggestions.style.display = 'block';
+                    matches.forEach(m => {
+                        resultsContainer.appendChild(createCard(m));
+                        const item = document.createElement('div');
+                        item.className = 'suggestion-item';
+                        item.innerText = m.name;
+                        item.onclick = () => {
+                            document.getElementById('productSearch').value = m.name;
+                            handleGlobalSearch();
+                            suggestions.style.display = 'none';
+                        };
+                        suggestions.appendChild(item);
+                    });
                 } else {
                     noResults.style.display = 'block';
+                    suggestions.style.display = 'none';
                 }
             } else {
                 body.classList.remove('search-mode');
+                suggestions.style.display = 'none';
                 noResults.style.display = 'none';
             }
         }
@@ -204,24 +255,30 @@
             if(p) {
                 document.getElementById('detailTitle').innerText = p.name;
                 document.getElementById('detailBody').innerHTML = `
-                    <span class="info-label">What:</span><p class="info-text">${p.what}</p>
+                    <span class="info-label">What it is:</span><p class="info-text">${p.what}</p>
                     <span class="info-label">Benefits:</span><p class="info-text">${p.benefits}</p>
-                    <span class="info-label">Dosage:</span><p class="info-text">${p.dosage}</p>
-                    <span class="info-label">When:</span><p class="info-text">${p.when}</p>
+                    <span class="info-label">Recommended Dosage:</span><p class="info-text">${p.dosage}</p>
+                    <span class="info-label">Natural Sources:</span><p class="info-text">${p.sources}</p>
+                    <span class="info-label">When to take:</span><p class="info-text">${p.when}</p>
+                    <span class="info-label">Best Practices:</span><p class="info-text">${p.practices}</p>
+                    <span class="info-label">Deficiency Signs:</span><p class="info-text">${p.deficiency}</p>
                 `;
                 showModal('productDetailModal');
             }
         }
 
-        // Tab Switching logic
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener("click", () => {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove("active"));
                 document.querySelectorAll('.product-section').forEach(s => s.classList.remove("active"));
                 tab.classList.add("active");
                 document.getElementById(tab.getAttribute("data-cat")).classList.add("active");
-                window.scrollTo(0, document.querySelector('.tabs-container').offsetTop);
             });
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-outer')) document.getElementById('suggestions').style.display = 'none';
         });
     </script>
 </body>
