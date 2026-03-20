@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Page - Modern Dark Theme</title>
+    <title>Product Page</title>
     <style>
         html { scroll-behavior: smooth; }
         body {
@@ -35,88 +35,81 @@
         .modal-footer { padding: 20px; text-align: center; border-top: 1px solid #222; }
         .understand-btn { background: #2b7cff; color: white; border: none; padding: 12px 40px; border-radius: 8px; font-weight: 600; cursor: pointer; }
 
-        /* FLOATING READ THIS BUTTON */
+        /* FLOATING BUTTON */
         .read-this-toggle {
             position: absolute; top: 20px; right: 20px; z-index: 1000;
             background: #2b7cff; color: white; border: none;
             padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s;
         }
         @media (min-width: 769px) { .read-this-toggle { position: fixed; } }
 
-        /* HERO & SEARCH */
-        .hero { background: linear-gradient(135deg, #1a1a1a, #111); padding: 100px 20px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin: 0; }
-        .hero p { opacity: 0.7; max-width: 700px; margin: 20px auto; line-height: 1.6; }
-
+        /* HERO & SEARCH - REVERTED TO YOUR PREFERRED DIMENSIONS */
+        .hero { background: #111; padding: 60px 20px; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin: 0; }
+        
         .search-outer {
             margin: 30px auto;
-            max-width: 400px;
-            width: 90%; 
+            max-width: 500px;
+            width: 100%;
             position: relative;
         }
         #productSearch {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 25px;
+            width: 90%;
+            padding: 15px 25px;
+            border-radius: 30px;
             border: 1px solid #333;
-            background: #1d1d1d;
+            background: #161616;
             color: white;
             font-size: 1rem;
             outline: none;
-            box-sizing: border-box;
         }
 
         #suggestions {
-            position: absolute; top: 100%; left: 0; right: 0;
+            position: absolute; top: 100%; left: 5%; right: 5%;
             background: #1d1d1d; border: 1px solid #333;
             border-radius: 10px; z-index: 1500; display: none;
             margin-top: 5px; max-height: 200px; overflow-y: auto;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            text-align: left;
         }
-        .suggestion-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #222; text-align: left; }
+        .suggestion-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #222; }
         .suggestion-item:hover { background: #2b7cff; }
 
         /* TABS */
-        .tabs-container { background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #222; width: 100%; position: sticky; top: 0; z-index: 100; }
-        .tabs { display: flex; gap: 12px; padding: 15px; overflow-x: auto; scrollbar-width: none; justify-content: center; }
-        .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 22px; border-radius: 25px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .tabs-container { background: #141414; border-bottom: 1px solid #222; width: 100%; position: sticky; top: 0; z-index: 100; }
+        .tabs { display: flex; gap: 10px; padding: 15px; overflow-x: auto; justify-content: center; }
+        .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
         .tab.active { background: #2b7cff; color: #fff; }
 
-        /* GRID LOGIC */
-        .product-section { display: none; padding: 40px 20px; justify-content: center; flex-wrap: wrap; gap: 25px; }
+        /* PRODUCT SECTIONS */
+        .product-section { display: none; padding: 20px; justify-content: center; flex-wrap: wrap; gap: 20px; }
         .product-section.active { display: flex; }
         
-        #search-results-section { display: none; padding: 40px 20px; justify-content: center; flex-wrap: wrap; gap: 25px; }
+        #search-results-section { display: none; padding: 20px; justify-content: center; flex-wrap: wrap; gap: 20px; }
         .search-mode #search-results-section { display: flex; }
         .search-mode .tabs-container, .search-mode .product-section { display: none !important; }
 
-        .product-card { background: #161616; width: 280px; border-radius: 16px; overflow: hidden; border: 1px solid #222; position: relative; transition: 0.3s; }
-        .product-card:hover { transform: translateY(-5px); border-color: #444; }
+        .product-card { background: #161616; width: 280px; border-radius: 15px; overflow: hidden; border: 1px solid #222; position: relative; }
         .product-card img { width: 100%; height: 200px; object-fit: cover; }
         
-        .info-icon { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
+        .info-icon { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .share-icon { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
 
-        .product-info { padding: 20px; text-align: center; }
-        .product-info h3 { margin: 0 0 15px; font-size: 1.1rem; }
-        .product-info a { display: block; padding: 10px; background: #2b7cff; border-radius: 8px; color: white; text-decoration: none; font-weight: 600; }
+        .product-info { padding: 15px; text-align: center; }
+        .product-info h3 { margin: 0 0 10px; font-size: 1.1rem; }
+        .product-info a { display: block; padding: 10px; background: #2b7cff; border-radius: 5px; color: white; text-decoration: none; font-weight: 600; }
 
-        #noResults { display: none; text-align: center; padding: 60px; color: #666; font-size: 1.1rem; }
+        #noResults { display: none; text-align: center; padding: 40px; color: #555; font-style: italic; }
 
-        /* BACK TO TOP */
+        /* FOOTER & BACK TO TOP */
+        footer { background: #111; padding: 40px 20px; text-align: center; border-top: 1px solid #222; margin-top: 50px; }
+        .social-links { margin-bottom: 15px; }
+        .social-links a { color: #2b7cff; text-decoration: none; margin: 0 10px; }
+        
         #backToTop {
-            position: fixed; bottom: 30px; right: 30px; background: #2b7cff;
-            color: white; width: 50px; height: 50px; border-radius: 50%;
-            border: none; cursor: pointer; display: none; z-index: 1000; font-size: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: fixed; bottom: 20px; right: 20px; background: #2b7cff;
+            color: white; width: 45px; height: 45px; border-radius: 50%;
+            border: none; cursor: pointer; display: none; z-index: 1000;
         }
-
-        /* FOOTER */
-        footer { background: #111; padding: 60px 20px; text-align: center; border-top: 1px solid #222; margin-top: 50px; }
-        .social-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
-        .social-links a { color: #888; text-decoration: none; font-weight: 600; transition: 0.3s; }
-        .social-links a:hover { color: #2b7cff; }
 
         .info-label { color: #2b7cff; font-weight: 600; margin-top: 15px; display: block; }
         .info-text { margin: 4px 0 10px 0; line-height: 1.5; color: #ccc; }
@@ -148,7 +141,7 @@
     <div id="main-content">
         <section class="hero">
             <h1>Products that I use</h1>
-            <p>Curated list of essentials. Using these links supports the channel. Respect your wallet—buy only what's necessary.</p>
+            <p style="opacity: 0.7; max-width: 600px; margin: 10px auto;">Curated list of essentials. Using these links supports the channel. Respect your wallet—buy only what's necessary.</p>
             
             <div class="search-outer">
                 <input type="text" id="productSearch" placeholder="Search products..." oninput="handleGlobalSearch()" autocomplete="off">
@@ -176,11 +169,11 @@
 
     <footer>
         <div class="social-links">
-            <a href="https://instagram.com/yourlink" target="_blank">Instagram</a>
+            <a href="https://www.instagram.com/iron_crafted_life/" target="_blank">Instagram</a>
             <a href="https://youtube.com/yourlink" target="_blank">YouTube</a>
-            <a href="#" target="_blank">Twitter</a>
         </div>
-        <p style="color: #444; font-size: 0.8rem;">&copy; 2026. All rights reserved.</p>
+        <p style="color: #444; font-size: 0.8rem;">&copy; 2026 Anmol Warikoo. All rights reserved.</p>
+        <p style="color: #444; font-size: 0.8rem;">Made by winners for winners.</p>
     </footer>
 
     <button id="backToTop" onclick="window.scrollTo(0,0)">↑</button>
@@ -189,17 +182,12 @@
     <script>
         const showModal = (id) => document.getElementById(id).style.display = 'flex';
         const hideModal = (id) => document.getElementById(id).style.display = 'none';
-        
         window.onload = () => showModal('infoModal');
 
-        // Scroll Logic for Back to Top
         window.onscroll = function() {
             const btn = document.getElementById("backToTop");
-            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
+            if (document.documentElement.scrollTop > 400) btn.style.display = "block";
+            else btn.style.display = "none";
         };
 
         function shareProduct(name, url) {
@@ -207,7 +195,7 @@
                 navigator.share({ title: name, url: url }).catch(console.error);
             } else {
                 navigator.clipboard.writeText(url);
-                alert("Link copied to clipboard!");
+                alert("Link copied!");
             }
         }
 
