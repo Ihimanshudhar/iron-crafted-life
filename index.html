@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Page</title>
+    <title>Product Page | Supplement Guide</title>
     <style>
         html { scroll-behavior: smooth; }
         body {
             margin: 0; padding: 0;
             font-family: "Inter", Arial, sans-serif;
             background: #0f0f0f; color: #e6e6e6;
-            position: relative;
         }
 
         /* MODALS */
@@ -23,56 +22,39 @@
             z-index: 2000; padding: 20px; box-sizing: border-box;
         }
         .modal-window {
-            background: #161616; width: 100%; max-width: 650px;
+            background: #161616; width: 100%; max-width: 600px;
             max-height: 85vh; border-radius: 20px;
             position: relative; overflow-y: auto; border: 1px solid #333;
-            animation: modalFadeIn 0.3s ease-out; display: flex; flex-direction: column;
+            display: flex; flex-direction: column;
         }
-        @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .modal-header { padding: 20px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: #161616; z-index: 10; }
         .close-modal { background: none; border: none; color: #888; font-size: 28px; cursor: pointer; }
         .modal-body { padding: 30px; }
         .modal-footer { padding: 20px; text-align: center; border-top: 1px solid #222; }
         .understand-btn { background: #2b7cff; color: white; border: none; padding: 12px 40px; border-radius: 8px; font-weight: 600; cursor: pointer; }
 
-        /* FLOATING BUTTON */
-        .read-this-toggle {
-            position: absolute; top: 20px; right: 20px; z-index: 1000;
-            background: #2b7cff; color: white; border: none;
-            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
+        /* VIDEO REEL (AUTOPLAY THUMBNAILS) */
+        .video-reel-container {
+            display: flex; gap: 15px; justify-content: center;
+            padding: 20px 0; overflow-x: auto; scrollbar-width: none;
         }
-        @media (min-width: 769px) { .read-this-toggle { position: fixed; } }
+        .video-reel-container::-webkit-scrollbar { display: none; }
+        .video-item { cursor: pointer; flex-shrink: 0; text-align: center; }
+        .video-circle {
+            width: 80px; height: 80px; border-radius: 50%;
+            border: 2px solid #2b7cff; padding: 3px; overflow: hidden;
+            background: #000;
+        }
+        .video-circle video { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-        /* HERO & SEARCH - REVERTED TO YOUR PREFERRED DIMENSIONS */
-        .hero { background: #111; padding: 60px 20px; text-align: center; }
-        .hero h1 { font-size: 2.5rem; margin: 0; }
-        
-        .search-outer {
-            margin: 30px auto;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-        }
+        /* HERO & SEARCH */
+        .hero { background: #111; padding: 40px 20px; text-align: center; }
+        .hero h1 { font-size: 2.2rem; margin: 0; }
+        .search-outer { margin: 25px auto; max-width: 500px; width: 100%; position: relative; }
         #productSearch {
-            width: 90%;
-            padding: 15px 25px;
-            border-radius: 30px;
-            border: 1px solid #333;
-            background: #161616;
-            color: white;
-            font-size: 1rem;
-            outline: none;
+            width: 100%; padding: 12px 20px; border-radius: 25px;
+            border: 1px solid #333; background: #161616; color: white; outline: none; box-sizing: border-box;
         }
-
-        #suggestions {
-            position: absolute; top: 100%; left: 5%; right: 5%;
-            background: #1d1d1d; border: 1px solid #333;
-            border-radius: 10px; z-index: 1500; display: none;
-            margin-top: 5px; max-height: 200px; overflow-y: auto;
-            text-align: left;
-        }
-        .suggestion-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #222; }
-        .suggestion-item:hover { background: #2b7cff; }
 
         /* TABS */
         .tabs-container { background: #141414; border-bottom: 1px solid #222; width: 100%; position: sticky; top: 0; z-index: 100; }
@@ -80,215 +62,190 @@
         .tab { background: #1d1d1d; color: #ccc; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
         .tab.active { background: #2b7cff; color: #fff; }
 
-        /* PRODUCT SECTIONS */
+        /* PRODUCT GRID */
         .product-section { display: none; padding: 20px; justify-content: center; flex-wrap: wrap; gap: 20px; }
         .product-section.active { display: flex; }
-        
-        #search-results-section { display: none; padding: 20px; justify-content: center; flex-wrap: wrap; gap: 20px; }
-        .search-mode #search-results-section { display: flex; }
-        .search-mode .tabs-container, .search-mode .product-section { display: none !important; }
-
         .product-card { background: #161616; width: 280px; border-radius: 15px; overflow: hidden; border: 1px solid #222; position: relative; }
         .product-card img { width: 100%; height: 200px; object-fit: cover; }
-        
-        .info-icon { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .share-icon { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
-
+        .info-icon { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
         .product-info { padding: 15px; text-align: center; }
-        .product-info h3 { margin: 0 0 10px; font-size: 1.1rem; }
         .product-info a { display: block; padding: 10px; background: #2b7cff; border-radius: 5px; color: white; text-decoration: none; font-weight: 600; }
 
-        #noResults { display: none; text-align: center; padding: 40px; color: #555; font-style: italic; }
+        /* GUIDE TEXT STYLING */
+        .info-label { color: #2b7cff; font-weight: 600; margin-top: 12px; display: block; font-size: 0.9rem; text-transform: uppercase; }
+        .info-text { margin: 4px 0 10px 0; line-height: 1.4; color: #ccc; font-size: 1rem; }
 
-        /* FOOTER & BACK TO TOP */
-        footer { background: #111; padding: 40px 20px; text-align: center; border-top: 1px solid #222; margin-top: 50px; }
-        .social-links { margin-bottom: 15px; }
-        .social-links a { color: #2b7cff; text-decoration: none; margin: 0 10px; }
-        
-        #backToTop {
-            position: fixed; bottom: 20px; right: 20px; background: #2b7cff;
-            color: white; width: 45px; height: 45px; border-radius: 50%;
-            border: none; cursor: pointer; display: none; z-index: 1000;
+        @media (max-width: 768px) {
+            .video-reel-container { justify-content: flex-start; padding-left: 15px; }
+            .video-circle { width: 65px; height: 65px; }
         }
-
-        .info-label { color: #2b7cff; font-weight: 600; margin-top: 15px; display: block; }
-        .info-text { margin: 4px 0 10px 0; line-height: 1.5; color: #ccc; }
     </style>
 </head>
-<body id="pageBody">
+<body>
 
-    <div class="modal-overlay" id="infoModal">
-        <div class="modal-window">
-            <div class="modal-header"><h2>Important Information</h2><button class="close-modal" onclick="hideModal('infoModal')">&times;</button></div>
-            <div class="modal-body">
-                <p>I use these products and provide affiliate links (2-4% commission). <strong>Only buy what you truly need.</strong></p>
-                <p>Knowledge is power—click the "i" on any product to see the supplement guide.</p>
+    <div class="modal-overlay" id="videoModal">
+        <div class="modal-window" style="max-width: 380px; background: #000;">
+            <div class="modal-header" style="border:none; position:absolute; right:0; z-index:100;">
+                <button class="close-modal" onclick="closeVideo()" style="color:white;">&times;</button>
             </div>
-            <div class="modal-footer"><button class="understand-btn" onclick="hideModal('infoModal')">I Understand</button></div>
+            <video id="reelPlayer" controls style="width:100%; height:auto; border-radius:20px;">
+                <source src="" type="video/mp4">
+            </video>
         </div>
     </div>
 
     <div class="modal-overlay" id="productDetailModal">
         <div class="modal-window">
-            <div class="modal-header"><h2 id="detailTitle">Product Info</h2><button class="close-modal" onclick="hideModal('productDetailModal')">&times;</button></div>
+            <div class="modal-header"><h2 id="detailTitle" style="margin:0;"></h2><button class="close-modal" onclick="hideModal('productDetailModal')">&times;</button></div>
             <div class="modal-body" id="detailBody"></div>
             <div class="modal-footer"><button class="understand-btn" onclick="hideModal('productDetailModal')">Close</button></div>
         </div>
     </div>
 
-    <button class="read-this-toggle" onclick="showModal('infoModal')">Read This</button>
-
-    <div id="main-content">
-        <section class="hero">
-            <h1>Products that I use</h1>
-            <p style="opacity: 0.7; max-width: 600px; margin: 10px auto;">Curated list of essentials. Using these links supports the channel. Respect your wallet—buy only what's necessary.</p>
-            
-            <div class="search-outer">
-                <input type="text" id="productSearch" placeholder="Search products..." oninput="handleGlobalSearch()" autocomplete="off">
-                <div id="suggestions"></div>
+    <section class="hero">
+        <h1>Products that I use</h1>
+        
+        <div class="video-reel-container">
+            <div class="video-item" onclick="playVideo('videos/Video1.mp4')">
+                <div class="video-circle"><video src="videos/Video1.mp4" autoplay muted loop playsinline></video></div>
             </div>
-        </section>
-
-        <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab active" data-cat="supplements">Supplements</button>
-                <button class="tab" data-cat="accessories">Accessories</button>
-                <button class="tab" data-cat="fitness">Fitness</button>
-                <button class="tab" data-cat="clothing">Clothing</button>
+            <div class="video-item" onclick="playVideo('videos/Video2.mp4')">
+                <div class="video-circle"><video src="videos/Video2.mp4" autoplay muted loop playsinline></video></div>
+            </div>
+            <div class="video-item" onclick="playVideo('videos/Video3.mp4')">
+                <div class="video-circle"><video src="videos/Video3.mp4" autoplay muted loop playsinline></video></div>
+            </div>
+            <div class="video-item" onclick="playVideo('videos/Video4.mp4')">
+                <div class="video-circle"><video src="videos/Video4.mp4" autoplay muted loop playsinline></video></div>
             </div>
         </div>
 
-        <div id="search-results-section"></div>
-        <div id="noResults">No products found.</div>
+        <div class="search-outer">
+            <input type="text" id="productSearch" placeholder="Search supplements..." oninput="handleSearch()">
+        </div>
+    </section>
 
-        <div id="supplements" class="product-section active"></div>
-        <div id="accessories" class="product-section"></div>
-        <div id="fitness" class="product-section"></div>
-        <div id="clothing" class="product-section"></div>
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab active" onclick="filterCat('supplements', this)">Supplements</button>
+            <button class="tab" onclick="filterCat('fitness', this)">Fitness</button>
+            <button class="tab" onclick="filterCat('accessories', this)">Accessories</button>
+        </div>
     </div>
 
-    <footer>
-        <div class="social-links">
-            <a href="https://www.instagram.com/iron_crafted_life/" target="_blank">Instagram</a>
-            <a href="https://youtube.com/yourlink" target="_blank">YouTube</a>
-        </div>
-        <p style="color: #444; font-size: 0.8rem;">&copy; 2026 Anmol Warikoo. All rights reserved.</p>
-        <p style="color: #444; font-size: 0.8rem;">Made by winners for winners.</p>
-    </footer>
+    <div id="product-grid" class="product-section active"></div>
 
-    <button id="backToTop" onclick="window.scrollTo(0,0)">↑</button>
-
-    <script src="product.js"></script>
     <script>
-        const showModal = (id) => document.getElementById(id).style.display = 'flex';
-        const hideModal = (id) => document.getElementById(id).style.display = 'none';
-        window.onload = () => showModal('infoModal');
-
-        window.onscroll = function() {
-            const btn = document.getElementById("backToTop");
-            if (document.documentElement.scrollTop > 400) btn.style.display = "block";
-            else btn.style.display = "none";
-        };
-
-        function shareProduct(name, url) {
-            if (navigator.share) {
-                navigator.share({ title: name, url: url }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(url);
-                alert("Link copied!");
+        const productData = [
+            {
+                name: "Magnesium", category: "supplements", img: "images/magnesium.jpg", buy: "https://amzn.to/4btTY4D",
+                what: "An essential mineral involved in 300+ biochemical reactions including muscle contraction, nerve function, and energy production.",
+                benefits: "Improves sleep, reduces muscle cramps, supports heart health, helps manage stress, improves insulin sensitivity.",
+                dosage: "Men: 400–420 mg/day, Women: 310–320 mg/day.",
+                sources: "Pumpkin seeds, almonds, spinach, dark chocolate, avocados.",
+                when: "Night before bed.",
+                practices: "Take with food if stomach is sensitive. Avoid taking with high-dose calcium.",
+                deficiency: "Muscle cramps, poor sleep, anxiety, fatigue, irregular heartbeat."
+            },
+            {
+                name: "Zinc", category: "supplements", img: "images/zinc.jpg", buy: "https://amzn.to/44V2KWK",
+                what: "A trace mineral essential for immune function, hormone production, and wound healing.",
+                benefits: "Boosts immune system, supports testosterone production, improves skin health, speeds wound healing.",
+                dosage: "Men: 11 mg/day, Women: 8 mg/day. Supplements typically 15–30 mg/day.",
+                sources: "Oysters, red meat, pumpkin seeds, chickpeas, cashews.",
+                when: "Morning or afternoon with food.",
+                practices: "Avoid exceeding 40 mg/day long term. Take away from calcium or iron.",
+                deficiency: "Frequent infections, hair loss, loss of taste or smell, slow wound healing."
+            },
+            {
+                name: "Fish Oil (Omega-3)", category: "supplements", img: "images/fishoil.jpg", buy: "https://amzn.to/495aic2",
+                what: "A supplement rich in EPA and DHA fatty acids.",
+                benefits: "Heart health, reduces inflammation, supports brain function, improves triglycerides.",
+                dosage: "1000–3000 mg EPA + DHA/day.",
+                sources: "Salmon, sardines, mackerel, anchovies.",
+                when: "With meals.",
+                practices: "Choose high EPA+DHA content and store in the fridge.",
+                deficiency: "Dry skin, joint inflammation, brain fog."
+            },
+            {
+                name: "Creatine", category: "fitness", img: "images/creatine.jpg", buy: "https://amzn.to/creatine-link",
+                what: "A compound stored in muscles that helps produce ATP.",
+                benefits: "Increces strength, improves muscle growth, enhances brain function.",
+                dosage: "3–5 g/day.",
+                sources: "Red meat and fish.",
+                when: "Anytime (post-workout common).",
+                practices: "Take daily consistently and drink adequate water.",
+                deficiency: "Reduced power output."
             }
-        }
+            // Add more products following this exact pattern
+        ];
 
-        function createCard(p) {
-            const card = document.createElement("div");
-            card.className = "product-card";
-            card.innerHTML = `
-                <div class="info-icon" onclick="openProductInfo('${p.name}')">i</div>
-                <div class="share-icon" onclick="shareProduct('${p.name}', '${p.buy}')">🔗</div>
-                <img src="${p.img}" alt="${p.name}">
-                <div class="product-info">
-                    <h3>${p.name}</h3>
-                    <a href="${p.buy}" target="_blank">Buy Now</a>
-                </div>
-            `;
-            return card;
-        }
+        const grid = document.getElementById('product-grid');
 
-        if (typeof productData !== 'undefined') {
-            productData.forEach(p => {
-                const container = document.getElementById(p.category);
-                if (container) container.appendChild(createCard(p));
-            });
-        }
-
-        function handleGlobalSearch() {
-            const query = document.getElementById('productSearch').value.toLowerCase().trim();
-            const body = document.getElementById('pageBody');
-            const resultsContainer = document.getElementById('search-results-section');
-            const suggestions = document.getElementById('suggestions');
-            const noResults = document.getElementById('noResults');
-            
-            suggestions.innerHTML = '';
-            if (query.length > 0) {
-                body.classList.add('search-mode');
-                resultsContainer.innerHTML = '';
-                const matches = productData.filter(p => p.name.toLowerCase().includes(query));
-                
-                if (matches.length > 0) {
-                    noResults.style.display = 'none';
-                    suggestions.style.display = 'block';
-                    matches.forEach(m => {
-                        resultsContainer.appendChild(createCard(m));
-                        const item = document.createElement('div');
-                        item.className = 'suggestion-item';
-                        item.innerText = m.name;
-                        item.onclick = () => {
-                            document.getElementById('productSearch').value = m.name;
-                            handleGlobalSearch();
-                            suggestions.style.display = 'none';
-                        };
-                        suggestions.appendChild(item);
-                    });
-                } else {
-                    noResults.style.display = 'block';
-                    suggestions.style.display = 'none';
-                }
-            } else {
-                body.classList.remove('search-mode');
-                suggestions.style.display = 'none';
-                noResults.style.display = 'none';
-            }
-        }
-
-        function openProductInfo(name) {
-            const p = productData.find(x => x.name === name);
-            if(p) {
-                document.getElementById('detailTitle').innerText = p.name;
-                document.getElementById('detailBody').innerHTML = `
-                    <span class="info-label">What it is:</span><p class="info-text">${p.what}</p>
-                    <span class="info-label">Benefits:</span><p class="info-text">${p.benefits}</p>
-                    <span class="info-label">Recommended Dosage:</span><p class="info-text">${p.dosage}</p>
-                    <span class="info-label">Natural Sources:</span><p class="info-text">${p.sources}</p>
-                    <span class="info-label">When to take:</span><p class="info-text">${p.when}</p>
-                    <span class="info-label">Best Practices:</span><p class="info-text">${p.practices}</p>
-                    <span class="info-label">Deficiency Signs:</span><p class="info-text">${p.deficiency}</p>
+        function renderProducts(data) {
+            grid.innerHTML = '';
+            data.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="info-icon" onclick="openInfo('${p.name}')">i</div>
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <a href="${p.buy}" target="_blank">Buy Now</a>
+                    </div>
                 `;
-                showModal('productDetailModal');
-            }
+                grid.appendChild(card);
+            });
         }
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener("click", () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove("active"));
-                document.querySelectorAll('.product-section').forEach(s => s.classList.remove("active"));
-                tab.classList.add("active");
-                document.getElementById(tab.getAttribute("data-cat")).classList.add("active");
-            });
-        });
+        function openInfo(name) {
+            const p = productData.find(x => x.name === name);
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailBody').innerHTML = `
+                <span class="info-label">What it is</span><p class="info-text">${p.what}</p>
+                <span class="info-label">Benefits</span><p class="info-text">${p.benefits}</p>
+                <span class="info-label">Dosage</span><p class="info-text">${p.dosage}</p>
+                <span class="info-label">Natural Sources</span><p class="info-text">${p.sources}</p>
+                <span class="info-label">When to take</span><p class="info-text">${p.when}</p>
+                <span class="info-label">Best Practices</span><p class="info-text">${p.practices}</p>
+                <span class="info-label">Deficiency Signs</span><p class="info-text">${p.deficiency}</p>
+            `;
+            document.getElementById('productDetailModal').style.display = 'flex';
+        }
 
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-outer')) document.getElementById('suggestions').style.display = 'none';
-        });
+        function filterCat(cat, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            const filtered = productData.filter(p => p.category === cat);
+            renderProducts(filtered);
+        }
+
+        function handleSearch() {
+            const q = document.getElementById('productSearch').value.toLowerCase();
+            const filtered = productData.filter(p => p.name.toLowerCase().includes(q));
+            renderProducts(filtered);
+        }
+
+        function playVideo(src) {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('reelPlayer');
+            player.src = src;
+            modal.style.display = 'flex';
+            player.play();
+        }
+
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('reelPlayer');
+            player.pause();
+            modal.style.display = 'none';
+        }
+
+        function hideModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // Initial Load
+        renderProducts(productData.filter(p => p.category === 'supplements'));
     </script>
 </body>
 </html>
