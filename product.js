@@ -1,6 +1,6 @@
 const productData = [
             { 
-                name: "Fish Oil", img: "images/fishoilimage.jpg", buy: "https://amzn.to/4dZv0N9", category: "supplements",
+                name: "Fish Oil", img: "images/fishoilimage.jpg", buy: "https://amzn.to/4u04mss", category: "supplements",
                 what: "A supplement rich in EPA and DHA fatty acids.",
                 benefits: "Heart health, reduces inflammation, supports brain function, improves triglycerides.",
                 dosage: "1000–3000 mg EPA + DHA/day.",
@@ -10,7 +10,7 @@ const productData = [
                 deficiency: "Dry skin, joint inflammation, brain fog."
             },
             { 
-                name: "Vitamin D3", img: "images/vitamind3.jpg", buy: "https://amzn.to/4mdst4a", category: "supplements",
+                name: "Vitamin D3", img: "images/vitamind3.jpg", buy: "https://amzn.to/4ugTtCP", category: "supplements",
                 what: "A fat-soluble vitamin acting like a hormone regulating calcium and immune function.",
                 benefits: "Bone health, immune support, hormone balance, mood improvement.",
                 dosage: "1000–2000 IU/day general; 3000–5000 IU/day if deficient.",
@@ -20,7 +20,7 @@ const productData = [
                 deficiency: "Fatigue, weak bones, depression, frequent illness."
             },
             { 
-                name: "Zinc", img: "images/zinc.jpg", buy: "https://amzn.to/4tsztwf", category: "supplements",
+                name: "Zinc", img: "images/zinc.jpg", buy: "https://amzn.to/41HivPe", category: "supplements",
                 what: "A trace mineral essential for immune function, hormone production, and wound healing.",
                 benefits: "Boosts immune system, supports testosterone production, improves skin health.",
                 dosage: "Supplements typically 15–30 mg/day.",
@@ -30,7 +30,7 @@ const productData = [
                 deficiency: "Frequent infections, hair loss, loss of taste or smell, slow wound healing."
             },
             { 
-                name: "Magnesium", img: "images/magnesium.jpg", buy: "https://amzn.to/4c1NE4n", category: "supplements",
+                name: "Magnesium", img: "images/magnesium.jpg", buy: "https://amzn.to/4tswrZG", category: "supplements",
                 what: "An essential mineral involved in 300+ biochemical reactions.",
                 benefits: "Improves sleep, reduces muscle cramps, supports heart health, helps manage stress.",
                 dosage: "Men: 400–420 mg/day, Women: 310–320 mg/day.",
@@ -40,7 +40,7 @@ const productData = [
                 deficiency: "Muscle cramps, poor sleep, anxiety, fatigue, irregular heartbeat."
             },
             { 
-                name: "Vitamin B12", img: "images/vitaminb12.jpg", buy: "https://amzn.to/3O0l6QY", category: "supplements",
+                name: "Vitamin B12", img: "images/vitaminb12.jpg", buy: "https://amzn.to/3QlBVXg", category: "supplements",
                 what: "A water-soluble vitamin essential for nerve function and red blood cell formation.",
                 benefits: "Prevents anemia, supports brain function, improves energy metabolism.",
                 dosage: "2.4 mcg/day (supplements often 500–1000 mcg).",
@@ -50,7 +50,7 @@ const productData = [
                 deficiency: "Fatigue, tingling in hands/feet, brain fog, pale skin."
             },
             { 
-                name: "Collagen", img: "images/collagen.jpg", buy: "https://amzn.to/4sMzBXH", category: "supplements",
+                name: "Collagen", img: "images/collagen.jpg", buy: "https://amzn.to/4cjV5p9", category: "supplements",
                 what: "The most abundant protein in the body supporting connective tissue.",
                 benefits: "Improves skin elasticity, reduces joint pain, strengthens hair and nails.",
                 dosage: "5–10 g/day.",
@@ -60,7 +60,7 @@ const productData = [
                 deficiency: "Joint pain, wrinkling skin, weak nails, slow injury recovery."
             },
             { 
-                name: "Multivitamin", img: "images/multivit.jpg", buy: "https://amzn.to/4vc1U3c", category: "supplements",
+                name: "Multivitamin", img: "images/multivit.jpg", buy: "https://amzn.to/48bNkPx", category: "supplements",
                 what: "A powerful antioxidant supporting immunity and collagen production.",
                 benefits: "Boosts immune function, improves skin, enhances iron absorption.",
                 dosage: "75–90 mg/day (supplement range 500–1000 mg).",
@@ -70,7 +70,7 @@ const productData = [
                 deficiency: "Weak immunity, bleeding gums, slow wound healing, fatigue."
             },
             { 
-                name: "F Gear Platoon 46L", img: "images/fgearbagimage.jpg", buy: "https://amzn.to/4vt4suj", category: "accessories",
+                name: "F Gear Platoon 46L", img: "images/fgearbagimage.jpg", buy: "https://amzn.to/4vFfv3l", category: "accessories",
                 what: "High capacity gear storage.",
                 benefits: "Organized storage for gym and travel.",
                 dosage: "N/A",
