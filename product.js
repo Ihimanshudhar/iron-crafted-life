@@ -205,7 +205,7 @@ const productData = [
             { 
                 name: "Digitek DTR 550 LW Tripod", 
                 img: "images/tripod.jpg", 
-                buy: "https://amzn.to/3Ql8e8C", 
+                buy: "https://amzn.to/4sOtpxz", 
                 category: "accessories",
                 what: "A lightweight, adjustable aluminum tripod with a 3-way pan head.",
                 benefits: "Provides stable support for cameras and smartphones, improves video quality, and allows for versatile shooting angles.",
@@ -218,7 +218,7 @@ const productData = [
             {
                 name: "Shilajit", 
                 img: "images/ashwagandha.jpg", 
-                buy: "https://amzn.to/4miHsdg", 
+                buy: "https://amzn.to/4tDVBEN", 
                 category: "supplements",
                 what: "A natural sticky resin found in the rocks of the Himalayas, formed over centuries from the slow decomposition of plants.",
                 benefits: "Boosts energy and stamina, improves testosterone levels, enhances cognitive function, and acts as a powerful antioxidant.",
